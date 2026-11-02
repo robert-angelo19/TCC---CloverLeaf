@@ -20,6 +20,7 @@
 !>  @details Packs/unpacks mpi send and receive buffers
 
 MODULE pack_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

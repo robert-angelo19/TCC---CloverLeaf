@@ -22,6 +22,7 @@
 !>  Only cells in compression will have a non-zero value.
 
 MODULE viscosity_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

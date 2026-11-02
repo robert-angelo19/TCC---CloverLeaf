@@ -23,6 +23,7 @@
 SUBROUTINE hydro
 
     USE clover_module
+        USE precision_mod, ONLY: wp
     USE timestep_module
     USE viscosity_module
     USE PdV_module

@@ -20,6 +20,7 @@
 !>  @details The edge volume fluxes are calculated based on the velocity fields.
 
 MODULE flux_calc_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

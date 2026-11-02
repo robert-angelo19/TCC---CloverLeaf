@@ -22,6 +22,7 @@
 
 
 FUNCTION timer()
+  USE precision_mod, ONLY: wp
 
 
   IMPLICIT none

@@ -30,6 +30,7 @@
 !>  systems of the order of 10K cores.
 
 MODULE clover_module
+  USE precision_mod, ONLY: wp
 
   USE data_module
   USE definitions_module

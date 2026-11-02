@@ -25,6 +25,7 @@
 SUBROUTINE visit
 
   USE clover_module
+    USE precision_mod, ONLY: wp
   USE update_halo_module
   USE viscosity_module
   USE ideal_gas_module

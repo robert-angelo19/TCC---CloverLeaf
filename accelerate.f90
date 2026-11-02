@@ -20,6 +20,7 @@
 !>  @details Calls user requested kernel
 
 MODULE accelerate_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

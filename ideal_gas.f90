@@ -21,6 +21,7 @@
 !>  state using the specified time level data.
 
 MODULE ideal_gas_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

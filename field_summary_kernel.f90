@@ -21,6 +21,7 @@
 !>  pressure for the chunk is calculated.
 
 MODULE field_summary_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

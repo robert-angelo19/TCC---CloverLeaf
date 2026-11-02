@@ -23,6 +23,7 @@
 !>  left in to remain relevant to the full method.
 
 MODULE revert_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

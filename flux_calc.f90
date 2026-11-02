@@ -20,6 +20,7 @@
 !>  @details Invokes the used specified flux kernel
 
 MODULE flux_calc_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

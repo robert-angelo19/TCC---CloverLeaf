@@ -24,6 +24,7 @@
 !>  scheme are defined here.
 
 MODULE definitions_module
+  USE precision_mod, ONLY: wp
 
   USE data_module
    

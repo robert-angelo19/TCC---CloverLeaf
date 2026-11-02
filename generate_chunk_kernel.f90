@@ -24,6 +24,7 @@
 !>  overwritten by further state definitions.
 
 MODULE generate_chunk_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

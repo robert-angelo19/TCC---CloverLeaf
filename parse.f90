@@ -20,6 +20,7 @@
 !>  @details Provides utilities to manipulate and parse Fortran strings.
 
 MODULE clover_case_change
+  USE precision_mod, ONLY: wp
 
   USE data_module
 
@@ -66,6 +67,7 @@ CONTAINS
 END MODULE clover_case_change
 
 MODULE clover_isitanint_mod
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 
@@ -97,6 +99,7 @@ CONTAINS
 END MODULE clover_isitanint_mod
 
 MODULE parse_module
+  USE precision_mod, ONLY: wp
 
   USE data_module
   USE report_module

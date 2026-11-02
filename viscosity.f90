@@ -21,6 +21,7 @@
 !>  viscosity.
 
 MODULE viscosity_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

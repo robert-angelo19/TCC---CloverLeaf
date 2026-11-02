@@ -20,6 +20,7 @@
 !>  @details Invokes the user selected advection kernel.
 
 MODULE  advec_cell_driver_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

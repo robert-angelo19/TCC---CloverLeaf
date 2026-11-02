@@ -25,6 +25,7 @@
 SUBROUTINE initialise
 
   USE clover_module
+    USE precision_mod, ONLY: wp
   USE parse_module
   USE report_module
 

@@ -20,6 +20,7 @@
 !>  @details Invokes the user specified revert kernel.
 
 MODULE revert_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

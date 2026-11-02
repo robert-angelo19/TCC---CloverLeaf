@@ -23,6 +23,7 @@
 !>  predictor or corrector.
 
 MODULE PdV_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

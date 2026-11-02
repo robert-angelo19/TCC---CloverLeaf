@@ -22,6 +22,7 @@
 !>  user specified limitand outputs the timestep information.
 
 MODULE timestep_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

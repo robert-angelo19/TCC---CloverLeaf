@@ -23,6 +23,7 @@
 !>  leave it in the method.
 
 MODULE advec_mom_kernel_mod
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

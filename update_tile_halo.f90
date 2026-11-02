@@ -21,6 +21,7 @@
 !>  the fields specified.
 
 MODULE update_tile_halo_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

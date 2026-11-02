@@ -22,6 +22,7 @@
 SUBROUTINE generate_chunk(tile)
 
   USE clover_module
+    USE precision_mod, ONLY: wp
   USE generate_chunk_kernel_module
 
   IMPLICIT NONE

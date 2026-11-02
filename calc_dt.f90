@@ -20,6 +20,7 @@
 !>  @details Invokes the user specified timestep kernel.
 
 MODULE calc_dt_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

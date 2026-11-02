@@ -20,6 +20,7 @@
 !>  @details Invokes the user specified kernel for the PdV update.
 
 MODULE PdV_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

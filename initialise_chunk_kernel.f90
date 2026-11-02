@@ -20,6 +20,7 @@
 !>  @details Calculates mesh geometry for the mesh chunk based on the mesh size.
 
 MODULE initialise_chunk_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

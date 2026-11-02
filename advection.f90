@@ -20,6 +20,7 @@
 !>  @details Controls the advection step and invokes required communications.
 
 MODULE advection_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

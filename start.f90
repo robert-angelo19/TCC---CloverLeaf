@@ -25,6 +25,7 @@
 SUBROUTINE start
 
   USE clover_module
+    USE precision_mod, ONLY: wp
   USE parse_module
   USE update_halo_module
   USE ideal_gas_module

@@ -21,6 +21,7 @@
 !>  the ideal gas equation of state, with a fixed gamma of 1.4.
 
 MODULE ideal_gas_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

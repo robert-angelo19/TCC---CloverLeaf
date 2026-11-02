@@ -39,6 +39,7 @@
 PROGRAM clover_leaf
 
   USE clover_module
+  USE precision_mod, ONLY: wp
 
   IMPLICIT NONE
 

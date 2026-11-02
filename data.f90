@@ -20,6 +20,7 @@
 !>  @details Parameters used in the CloverLeaf are defined here.
 
 MODULE data_module
+  USE precision_mod, ONLY: wp
 
   IMPLICIT NONE
 

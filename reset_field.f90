@@ -20,6 +20,7 @@
 !>  @details Invokes the user specified field reset kernel.
 
 MODULE reset_field_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

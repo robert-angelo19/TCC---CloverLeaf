@@ -21,6 +21,7 @@
 !>  step data, ready for the next timestep.
 
 MODULE reset_field_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

@@ -20,6 +20,7 @@
 !>  @details Outputs error messages and aborts the calculation.
 
 MODULE report_module
+  USE precision_mod, ONLY: wp
 
   USE data_module
   USE clover_module

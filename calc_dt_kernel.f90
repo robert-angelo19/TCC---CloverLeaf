@@ -22,6 +22,7 @@
 !>  factor is used to ensure numerical stability.
 
 MODULE calc_dt_kernel_module
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 

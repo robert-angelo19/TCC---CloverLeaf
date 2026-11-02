@@ -23,6 +23,7 @@
 SUBROUTINE build_field()
 
   USE clover_module
+  USE precision_mod, ONLY: wp
 
   IMPLICIT NONE
 
