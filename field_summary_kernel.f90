@@ -37,10 +37,10 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER      :: x_min,x_max,y_min,y_max
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
     REAL(KIND=wp):: vol,mass,ie,ke,press
 
     INTEGER      :: j,k,jv,kv

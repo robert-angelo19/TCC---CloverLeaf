@@ -53,13 +53,13 @@ CONTAINS
 
     INTEGER :: x_min,x_max,y_min,y_max
     INTEGER, DIMENSION(4) :: tile_neighbours, chunk_neighbours, depth_mask
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
     INTEGER :: fields(:),depth
 
 

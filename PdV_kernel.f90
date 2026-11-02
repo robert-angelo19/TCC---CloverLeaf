@@ -48,16 +48,16 @@ CONTAINS
 
     INTEGER :: x_min,x_max,y_min,y_max
     REAL(KIND=wp) :: dt
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: xarea
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: yarea
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: volume_change
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: xarea
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: yarea
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: volume_change
 
     INTEGER :: j,k
 

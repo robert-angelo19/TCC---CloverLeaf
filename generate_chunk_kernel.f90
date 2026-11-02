@@ -55,22 +55,22 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER      :: x_min,x_max,y_min,y_max
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3) :: vertexx
-    REAL(KIND=wp) DIMENSION(y_min-2:y_max+3) :: vertexy
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2) :: cellx
-    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2) :: celly
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3) :: vertexx
+    REAL(KIND=wp), DIMENSION(y_min-2:y_max+3) :: vertexy
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2) :: cellx
+    REAL(KIND=wp), DIMENSION(y_min-2:y_max+2) :: celly
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
     INTEGER      :: number_of_states
-    REAL(KIND=wp) DIMENSION(number_of_states) :: state_density
-    REAL(KIND=wp) DIMENSION(number_of_states) :: state_energy
-    REAL(KIND=wp) DIMENSION(number_of_states) :: state_xvel
-    REAL(KIND=wp) DIMENSION(number_of_states) :: state_yvel
-    REAL(KIND=wp) DIMENSION(number_of_states) :: state_xmin
-    REAL(KIND=wp) DIMENSION(number_of_states) :: state_xmax
-    REAL(KIND=wp) DIMENSION(number_of_states) :: state_ymin
-    REAL(KIND=wp) DIMENSION(number_of_states) :: state_ymax
-    REAL(KIND=wp) DIMENSION(number_of_states) :: state_radius
+    REAL(KIND=wp), DIMENSION(number_of_states) :: state_density
+    REAL(KIND=wp), DIMENSION(number_of_states) :: state_energy
+    REAL(KIND=wp), DIMENSION(number_of_states) :: state_xvel
+    REAL(KIND=wp), DIMENSION(number_of_states) :: state_yvel
+    REAL(KIND=wp), DIMENSION(number_of_states) :: state_xmin
+    REAL(KIND=wp), DIMENSION(number_of_states) :: state_xmax
+    REAL(KIND=wp), DIMENSION(number_of_states) :: state_ymin
+    REAL(KIND=wp), DIMENSION(number_of_states) :: state_ymax
+    REAL(KIND=wp), DIMENSION(number_of_states) :: state_radius
     INTEGER     , DIMENSION(number_of_states) :: state_geometry
     INTEGER      :: g_rect
     INTEGER      :: g_circ

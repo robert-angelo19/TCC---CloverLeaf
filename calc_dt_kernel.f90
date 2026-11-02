@@ -59,20 +59,20 @@ CONTAINS
     INTEGER :: x_min,x_max,y_min,y_max
     REAL(KIND=wp) :: g_small,g_big,dtmin,dt_min_val
     REAL(KIND=wp) :: dtc_safe,dtu_safe,dtv_safe,dtdiv_safe
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: xarea
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: yarea
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2)             :: cellx
-    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2)             :: celly
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2)             :: celldx
-    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2)             :: celldy
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity_a
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: soundspeed
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: dt_min
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: xarea
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: yarea
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2)             :: cellx
+    REAL(KIND=wp), DIMENSION(y_min-2:y_max+2)             :: celly
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2)             :: celldx
+    REAL(KIND=wp), DIMENSION(y_min-2:y_max+2)             :: celldy
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity_a
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: soundspeed
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: dt_min
 
     INTEGER          :: dtl_control
     REAL(KIND=wp)    :: xl_pos,yl_pos

@@ -37,12 +37,12 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER     :: x_min,x_max,y_min,y_max
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2)                     :: celldx
-    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2)                     :: celldy
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)     :: density0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)     :: pressure
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)     :: viscosity
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3)     :: xvel0,yvel0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2)                     :: celldx
+    REAL(KIND=wp), DIMENSION(y_min-2:y_max+2)                     :: celldy
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)     :: density0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)     :: pressure
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)     :: viscosity
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3)     :: xvel0,yvel0
 
     INTEGER       :: j,k
     REAL(KIND=wp) :: ugrad,vgrad,grad2,pgradx,pgrady,pgradx2,pgrady2,grad     &

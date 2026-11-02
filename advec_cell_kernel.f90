@@ -54,23 +54,23 @@ CONTAINS
     INTEGER :: sweep_number,dir
     INTEGER :: g_xdir=1,g_ydir=2
 
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy1
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: mass_flux_x
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: mass_flux_y
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: pre_vol
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_vol
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: pre_mass
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_mass
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: advec_vol
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_ener
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: ener_flux
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: mass_flux_x
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: mass_flux_y
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: pre_vol
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_vol
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: pre_mass
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_mass
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: advec_vol
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_ener
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: ener_flux
 
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3) :: vertexdx
-    REAL(KIND=wp) DIMENSION(y_min-2:y_max+3) :: vertexdy
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3) :: vertexdx
+    REAL(KIND=wp), DIMENSION(y_min-2:y_max+3) :: vertexdy
 
     INTEGER :: j,k,upwind,donor,downwind,dif
 

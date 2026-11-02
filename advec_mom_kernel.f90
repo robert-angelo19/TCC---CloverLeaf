@@ -52,22 +52,22 @@ CONTAINS
     INTEGER :: x_min,x_max,y_min,y_max
     INTEGER :: which_vel,sweep_number,direction
 
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: vel1
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: mass_flux_x
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: mass_flux_y
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_flux
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_mass_post
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_mass_pre
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: mom_flux
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: pre_vol
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_vol
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: vel1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: mass_flux_x
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: mass_flux_y
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_flux
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_mass_post
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_mass_pre
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: mom_flux
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: pre_vol
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_vol
 
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2) :: celldx
-    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2) :: celldy
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2) :: celldx
+    REAL(KIND=wp), DIMENSION(y_min-2:y_max+2) :: celldy
  
     INTEGER :: j,k,mom_sweep
     INTEGER :: upwind,donor,downwind,dif

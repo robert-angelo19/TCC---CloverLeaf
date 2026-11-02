@@ -32,10 +32,10 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)    :: density0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)    :: density1
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)    :: energy0
-    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)    :: energy1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)    :: density0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)    :: density1
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)    :: energy0
+    REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2)    :: energy1
 
     INTEGER :: j,k
 

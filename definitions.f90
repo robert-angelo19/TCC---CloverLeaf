@@ -124,24 +124,24 @@ MODULE definitions_module
   INTEGER         :: jdt,kdt
 
   TYPE field_type
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: density0,density1
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: energy0,energy1
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: pressure
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: viscosity
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: soundspeed
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: xvel0,xvel1
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: yvel0,yvel1
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: vol_flux_x,mass_flux_x
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: vol_flux_y,mass_flux_y
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: work_array1 !node_flux, stepbymass, volume_change, pre_vol
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: work_array2 !node_mass_post, post_vol
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: work_array3 !node_mass_pre,pre_mass
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: work_array4 !advec_vel, post_mass
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: work_array5 !mom_flux, advec_vol
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: work_array6 !pre_vol, post_ener
-    REAL(KIND=wp)    DIMENSION(:,:), ALLOCATABLE :: work_array7 !post_vol, ener_flux
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: density0,density1
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: energy0,energy1
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: pressure
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: viscosity
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: soundspeed
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: xvel0,xvel1
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: yvel0,yvel1
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: vol_flux_x,mass_flux_x
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: vol_flux_y,mass_flux_y
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: work_array1 !node_flux, stepbymass, volume_change, pre_vol
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: work_array2 !node_mass_post, post_vol
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: work_array3 !node_mass_pre,pre_mass
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: work_array4 !advec_vel, post_mass
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: work_array5 !mom_flux, advec_vol
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: work_array6 !pre_vol, post_ener
+    REAL(KIND=wp),    DIMENSION(:,:), ALLOCATABLE :: work_array7 !post_vol, ener_flux
 
-    REAL(KIND=wp) DIMENSION(:),   ALLOCATABLE :: cellx    &
+    REAL(KIND=wp), DIMENSION(:),   ALLOCATABLE :: cellx    &
       ,celly    &
       ,vertexx  &
       ,vertexy  &
@@ -150,7 +150,7 @@ MODULE definitions_module
       ,vertexdx &
       ,vertexdy
 
-    REAL(KIND=wp) DIMENSION(:,:), ALLOCATABLE :: volume  &
+    REAL(KIND=wp), DIMENSION(:,:), ALLOCATABLE :: volume  &
       ,xarea   &
       ,yarea
 
@@ -180,8 +180,8 @@ MODULE definitions_module
     !  one send and one receive per face, rather than per field.
     ! If chunks are overloaded, i.e. more chunks than tasks, might need to pack for a task to task comm
     !  rather than a chunk to chunk comm. See how performance is at high core counts before deciding
-    REAL(KIND=wp)ALLOCATABLE:: left_rcv_buffer(:),right_rcv_buffer(:),bottom_rcv_buffer(:),top_rcv_buffer(:)
-    REAL(KIND=wp)ALLOCATABLE:: left_snd_buffer(:),right_snd_buffer(:),bottom_snd_buffer(:),top_snd_buffer(:)
+    REAL(KIND=wp),ALLOCATABLE:: left_rcv_buffer(:),right_rcv_buffer(:),bottom_rcv_buffer(:),top_rcv_buffer(:)
+    REAL(KIND=wp),ALLOCATABLE:: left_snd_buffer(:),right_snd_buffer(:),bottom_snd_buffer(:),top_snd_buffer(:)
 
     !TYPE(field_type):: field
     TYPE(tile_type), DIMENSION(:), ALLOCATABLE :: tiles
