@@ -24,7 +24,7 @@
 !>  overwritten by further state definitions.
 
 MODULE generate_chunk_kernel_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, sqrt_wp
 
 CONTAINS
 
@@ -144,7 +144,7 @@ CONTAINS
               ENDIF
             ENDIF
           ELSEIF(state_geometry(state).EQ.g_circ ) THEN
-            radius=SQRT((cellx(j)-x_cent)*(cellx(j)-x_cent)+(celly(k)-y_cent)*(celly(k)-y_cent))
+            radius=sqrt_wp((cellx(j)-x_cent)*(cellx(j)-x_cent)+(celly(k)-y_cent)*(celly(k)-y_cent))
             IF(radius.LE.state_radius(state))THEN
               energy0(j,k)=state_energy(state)
               density0(j,k)=state_density(state)

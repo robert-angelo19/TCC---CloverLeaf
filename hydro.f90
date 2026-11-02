@@ -37,7 +37,7 @@ SUBROUTINE hydro
     INTEGER         :: loc(1), tile
     REAL(KIND=dp)   :: timer,timerstart,wall_clock,step_clock
   
-    REAL(KIND=dp)   :: kernel_total,totals(parallel%max_task)
+    REAL(KIND=wp)   :: kernel_total,totals(parallel%max_task)
     REAL(KIND=dp)   :: grind_time,cells,rstep
     REAL(KIND=dp)   :: step_time,step_grind
     REAL(KIND=dp)   :: first_step,second_step

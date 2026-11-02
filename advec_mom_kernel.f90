@@ -23,7 +23,7 @@
 !>  leave it in the method.
 
 MODULE advec_mom_kernel_mod
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, abs_wp
 
 CONTAINS
 
@@ -167,14 +167,14 @@ CONTAINS
             downwind=j+1
             dif=upwind
           ENDIF
-          sigma=ABS(node_flux(j,k))/(node_mass_pre(donor,k))
+          sigma=abs_wp(node_flux(j,k))/(node_mass_pre(donor,k))
           width=celldx(j)
           vdiffuw=vel1(donor,k)-vel1(upwind,k)
           vdiffdw=vel1(downwind,k)-vel1(donor,k)
           limiter=0.0
           IF(vdiffuw*vdiffdw.GT.0.0)THEN
-            auw=ABS(vdiffuw)
-            adw=ABS(vdiffdw)
+            auw=abs_wp(vdiffuw)
+            adw=abs_wp(vdiffdw)
             wind=1.0_wp
             IF(vdiffdw.LE.0.0) wind=-1.0_wp
             limiter=wind*MIN(width*((2.0_wp*sigma)*adw/width+(1.0_wp+sigma)*auw/celldx(dif))/6.0_wp,auw,adw)
@@ -232,14 +232,14 @@ CONTAINS
             dif=upwind
           ENDIF
 
-          sigma=ABS(node_flux(j,k))/(node_mass_pre(j,donor))
+          sigma=abs_wp(node_flux(j,k))/(node_mass_pre(j,donor))
           width=celldy(k)
           vdiffuw=vel1(j,donor)-vel1(j,upwind)
           vdiffdw=vel1(j,downwind)-vel1(j,donor)
           limiter=0.0
           IF(vdiffuw*vdiffdw.GT.0.0)THEN
-            auw=ABS(vdiffuw)
-            adw=ABS(vdiffdw)
+            auw=abs_wp(vdiffuw)
+            adw=abs_wp(vdiffdw)
             wind=1.0_wp
             IF(vdiffdw.LE.0.0) wind=-1.0_wp
             limiter=wind*MIN(width*((2.0_wp*sigma)*adw/width+(1.0_wp+sigma)*auw/celldy(dif))/6.0_wp,auw,adw)

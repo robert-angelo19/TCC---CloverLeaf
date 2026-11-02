@@ -22,7 +22,7 @@
 !>  factor is used to ensure numerical stability.
 
 MODULE calc_dt_kernel_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, abs_wp, sqrt_wp
 
 CONTAINS
 
@@ -105,7 +105,7 @@ CONTAINS
 
         cc=soundspeed(j,k)*soundspeed(j,k)
         cc=cc+2.0_wp*viscosity_a(j,k)/density0(j,k)
-        cc=MAX(SQRT(cc),g_small)
+        cc=MAX(sqrt_wp(cc),g_small)
 
         dtct=dtc_safe*MIN(dsx,dsy)/cc
 
@@ -116,14 +116,14 @@ CONTAINS
 
         div=div+dv2-dv1
 
-        dtut=dtu_safe*2.0_wp*volume(j,k)/MAX(ABS(dv1),ABS(dv2),g_small*volume(j,k))
+        dtut=dtu_safe*2.0_wp*volume(j,k)/MAX(abs_wp(dv1),abs_wp(dv2),g_small*volume(j,k))
 
         dv1=(yvel0(j,k  )+yvel0(j+1,k  ))*yarea(j,k  )
         dv2=(yvel0(j,k+1)+yvel0(j+1,k+1))*yarea(j,k+1)
 
         div=div+dv2-dv1
 
-        dtvt=dtv_safe*2.0_wp*volume(j,k)/MAX(ABS(dv1),ABS(dv2),g_small*volume(j,k))
+        dtvt=dtv_safe*2.0_wp*volume(j,k)/MAX(abs_wp(dv1),abs_wp(dv2),g_small*volume(j,k))
 
         div=div/(2.0_wp*volume(j,k))
 

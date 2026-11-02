@@ -21,7 +21,7 @@
 !>  with directional splitting.
 
 MODULE advec_cell_kernel_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, abs_wp
 
 CONTAINS
 
@@ -127,7 +127,7 @@ CONTAINS
             dif      =upwind
           ENDIF
 
-          sigmat=ABS(vol_flux_x(j,k))/pre_vol(donor,k)
+          sigmat=abs_wp(vol_flux_x(j,k))/pre_vol(donor,k)
           sigma3=(1.0_wp+sigmat)*(vertexdx(j)/vertexdx(dif))
           sigma4=2.0_wp*sigmat
 
@@ -139,21 +139,21 @@ CONTAINS
           wind=1.0_wp
           IF(diffdw.LE.0.0) wind=-1.0_wp
           IF(diffuw*diffdw.GT.0.0)THEN
-            limiter=(1.0_wp-sigmav)*wind*MIN(ABS(diffuw),ABS(diffdw)&
-              ,one_by_six*(sigma3*ABS(diffuw)+sigma4*ABS(diffdw)))
+            limiter=(1.0_wp-sigmav)*wind*MIN(abs_wp(diffuw),abs_wp(diffdw)&
+              ,one_by_six*(sigma3*abs_wp(diffuw)+sigma4*abs_wp(diffdw)))
           ELSE
             limiter=0.0
           ENDIF
           mass_flux_x(j,k)=vol_flux_x(j,k)*(density1(donor,k)+limiter)
 
-          sigmam=ABS(mass_flux_x(j,k))/(density1(donor,k)*pre_vol(donor,k))
+          sigmam=abs_wp(mass_flux_x(j,k))/(density1(donor,k)*pre_vol(donor,k))
           diffuw=energy1(donor,k)-energy1(upwind,k)
           diffdw=energy1(downwind,k)-energy1(donor,k)
           wind=1.0_wp
           IF(diffdw.LE.0.0) wind=-1.0_wp
           IF(diffuw*diffdw.GT.0.0)THEN
-            limiter=(1.0_wp-sigmam)*wind*MIN(ABS(diffuw),ABS(diffdw)&
-              ,one_by_six*(sigma3*ABS(diffuw)+sigma4*ABS(diffdw)))
+            limiter=(1.0_wp-sigmam)*wind*MIN(abs_wp(diffuw),abs_wp(diffdw)&
+              ,one_by_six*(sigma3*abs_wp(diffuw)+sigma4*abs_wp(diffdw)))
           ELSE
             limiter=0.0
           ENDIF
@@ -215,7 +215,7 @@ CONTAINS
             dif      =upwind
           ENDIF
 
-          sigmat=ABS(vol_flux_y(j,k))/pre_vol(j,donor)
+          sigmat=abs_wp(vol_flux_y(j,k))/pre_vol(j,donor)
           sigma3=(1.0_wp+sigmat)*(vertexdy(k)/vertexdy(dif))
           sigma4=2.0_wp*sigmat
 
@@ -227,21 +227,21 @@ CONTAINS
           wind=1.0_wp
           IF(diffdw.LE.0.0) wind=-1.0_wp
           IF(diffuw*diffdw.GT.0.0)THEN
-            limiter=(1.0_wp-sigmav)*wind*MIN(ABS(diffuw),ABS(diffdw)&
-              ,one_by_six*(sigma3*ABS(diffuw)+sigma4*ABS(diffdw)))
+            limiter=(1.0_wp-sigmav)*wind*MIN(abs_wp(diffuw),abs_wp(diffdw)&
+              ,one_by_six*(sigma3*abs_wp(diffuw)+sigma4*abs_wp(diffdw)))
           ELSE
             limiter=0.0
           ENDIF
           mass_flux_y(j,k)=vol_flux_y(j,k)*(density1(j,donor)+limiter)
 
-          sigmam=ABS(mass_flux_y(j,k))/(density1(j,donor)*pre_vol(j,donor))
+          sigmam=abs_wp(mass_flux_y(j,k))/(density1(j,donor)*pre_vol(j,donor))
           diffuw=energy1(j,donor)-energy1(j,upwind)
           diffdw=energy1(j,downwind)-energy1(j,donor)
           wind=1.0_wp
           IF(diffdw.LE.0.0) wind=-1.0_wp
           IF(diffuw*diffdw.GT.0.0)THEN
-            limiter=(1.0_wp-sigmam)*wind*MIN(ABS(diffuw),ABS(diffdw)&
-              ,one_by_six*(sigma3*ABS(diffuw)+sigma4*ABS(diffdw)))
+            limiter=(1.0_wp-sigmam)*wind*MIN(abs_wp(diffuw),abs_wp(diffdw)&
+              ,one_by_six*(sigma3*abs_wp(diffuw)+sigma4*abs_wp(diffdw)))
           ELSE
             limiter=0.0
           ENDIF

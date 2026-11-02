@@ -335,9 +335,10 @@ CONTAINS
   FUNCTION parse_getrval(word)
 
     USE clover_module
+    USE precision_mod, ONLY: dp
 
     CHARACTER(LEN=*) :: word
-    REAL(KIND=wp)  :: temp,parse_getrval
+    REAL(KIND=dp)  :: temp,parse_getrval
 
     INTEGER :: ios
 

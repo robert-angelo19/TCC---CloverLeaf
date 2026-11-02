@@ -17,4 +17,22 @@ module precision_mod
   ! integer, parameter :: wp = dp
   integer, parameter :: wp = hp
 
+contains
+
+  !$ACC ROUTINE SEQ
+  elemental function abs_wp(value) result(result)
+    real(kind=wp), intent(in) :: value
+    real(kind=wp) :: result
+
+    result = real(abs(real(value, kind=dp)), kind=wp)
+  end function abs_wp
+
+  !$ACC ROUTINE SEQ
+  elemental function sqrt_wp(value) result(result)
+    real(kind=wp), intent(in) :: value
+    real(kind=wp) :: result
+
+    result = real(sqrt(real(value, kind=dp)), kind=wp)
+  end function sqrt_wp
+
 end module precision_mod

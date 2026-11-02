@@ -22,7 +22,7 @@
 !>  Only cells in compression will have a non-zero value.
 
 MODULE viscosity_kernel_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, abs_wp, sqrt_wp
 
 CONTAINS
 
@@ -80,13 +80,13 @@ CONTAINS
         ELSE
           dirx=1.0_wp
           IF(pgradx.LT.0.0) dirx=-1.0_wp
-          pgradx = dirx*MAX(1.0e-16_wp,ABS(pgradx))
+          pgradx = dirx*MAX(1.0e-16_wp,abs_wp(pgradx))
           diry=1.0_wp
           IF(pgradx.LT.0.0) diry=-1.0_wp
-          pgrady = diry*MAX(1.0e-16_wp,ABS(pgrady))
-          pgrad = SQRT(pgradx**2+pgrady**2)
-          xgrad = ABS(celldx(j)*pgrad/pgradx)
-          ygrad = ABS(celldy(k)*pgrad/pgrady)
+          pgrady = diry*MAX(1.0e-16_wp,abs_wp(pgrady))
+          pgrad = sqrt_wp(pgradx**2+pgrady**2)
+          xgrad = abs_wp(celldx(j)*pgrad/pgradx)
+          ygrad = abs_wp(celldy(k)*pgrad/pgrady)
           grad  = MIN(xgrad,ygrad)
           grad2 = grad*grad
 
