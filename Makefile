@@ -172,7 +172,8 @@ clover_leaf: c_lover *.f90 Makefile
 	visit.f90			\
 	clover_leaf.f90     \
 	timer_c.o             \
-	-o clover_leaf; echo $(MESSAGE)
+	-o clover_leaf
+	@echo $(MESSAGE)
 
 c_lover: *.c Makefile
 	$(C_MPI_COMPILER) $(CFLAGS)	\

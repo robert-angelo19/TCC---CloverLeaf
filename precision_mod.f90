@@ -13,9 +13,9 @@ module precision_mod
 
   ! >>> AQUI você escolhe a precisão de trabalho do experimento <<<
   ! Descomente APENAS uma das linhas abaixo:
-  ! integer, parameter :: wp = sp
+  integer, parameter :: wp = sp
   ! integer, parameter :: wp = dp
-  integer, parameter :: wp = hp
+  ! integer, parameter :: wp = hp
 
 contains
 

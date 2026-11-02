@@ -25,7 +25,7 @@
 SUBROUTINE visit
 
   USE clover_module
-  USE precision_mod, ONLY: wp, dp, abs_wp
+  USE precision_mod, ONLY: wp, dp
     USE precision_mod, ONLY: wp
   USE update_halo_module
   USE viscosity_module
@@ -176,7 +176,7 @@ SUBROUTINE visit
       DO k=chunk%tiles(tile)%t_ymin,chunk%tiles(tile)%t_ymax+1
         DO j=chunk%tiles(tile)%t_xmin,chunk%tiles(tile)%t_xmax+1
           temp_var=0.0
-          IF(abs_wp(chunk%tiles(tile)%field%xvel0(j,k)).GT.0.00000001) temp_var=chunk%tiles(tile)%field%xvel0(j,k)
+          IF(ABS(chunk%tiles(tile)%field%xvel0(j,k)).GT.0.00000001) temp_var=chunk%tiles(tile)%field%xvel0(j,k)
           WRITE(u,'(e12.4)') temp_var
         ENDDO
       ENDDO
@@ -184,7 +184,7 @@ SUBROUTINE visit
       DO k=chunk%tiles(tile)%t_ymin,chunk%tiles(tile)%t_ymax+1
         DO j=chunk%tiles(tile)%t_xmin,chunk%tiles(tile)%t_xmax+1
           temp_var=0.0
-          IF(abs_wp(chunk%tiles(tile)%field%yvel0(j,k)).GT.0.00000001) temp_var=chunk%tiles(tile)%field%yvel0(j,k)
+          IF(ABS(chunk%tiles(tile)%field%yvel0(j,k)).GT.0.00000001) temp_var=chunk%tiles(tile)%field%yvel0(j,k)
           WRITE(u,'(e12.4)') temp_var
         ENDDO
       ENDDO

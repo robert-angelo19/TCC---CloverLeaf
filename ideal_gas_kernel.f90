@@ -21,7 +21,7 @@
 !>  the ideal gas equation of state, with a fixed gamma of 1.4.
 
 MODULE ideal_gas_kernel_module
-  USE precision_mod, ONLY: wp, sqrt_wp
+  USE precision_mod, ONLY: wp
 
 CONTAINS
 
@@ -55,7 +55,7 @@ CONTAINS
         pressurebyenergy=(1.4_wp-1.0_wp)*density(j,k)
         pressurebyvolume=-density(j,k)*pressure(j,k)
         sound_speed_squared=v*v*(pressure(j,k)*pressurebyenergy-pressurebyvolume)
-        soundspeed(j,k)=sqrt_wp(sound_speed_squared)
+        soundspeed(j,k)=SQRT(sound_speed_squared)
       ENDDO
     ENDDO
 
