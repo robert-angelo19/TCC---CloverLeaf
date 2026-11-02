@@ -38,10 +38,10 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
 
     INTEGER :: j,k
 

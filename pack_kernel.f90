@@ -32,8 +32,8 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: field(-1:,-1:) ! This seems to work for any type of mesh data
-    REAL(KIND=8) :: left_snd_buffer(:)
+    REAL(KIND=wp):: field(-1:,-1:) ! This seems to work for any type of mesh data
+    REAL(KIND=wp):: left_snd_buffer(:)
 
     INTEGER      :: CELL_DATA,VERTEX_DATA,X_FACE_DATA,Y_FACE_DATA
     INTEGER      :: depth,field_type,x_min,x_max,y_min,y_max
@@ -84,8 +84,8 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: field(-1:,-1:) ! This seems to work for any type of mesh data
-    REAL(KIND=8) :: left_rcv_buffer(:)
+    REAL(KIND=wp):: field(-1:,-1:) ! This seems to work for any type of mesh data
+    REAL(KIND=wp):: left_rcv_buffer(:)
 
     INTEGER      :: CELL_DATA,VERTEX_DATA,X_FACE_DATA,Y_FACE_DATA
     INTEGER      :: depth,field_type,x_min,x_max,y_min,y_max
@@ -136,8 +136,8 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: field(-1:,-1:) ! This seems to work for any type of mesh data
-    REAL(KIND=8) :: right_snd_buffer(:)
+    REAL(KIND=wp):: field(-1:,-1:) ! This seems to work for any type of mesh data
+    REAL(KIND=wp):: right_snd_buffer(:)
 
     INTEGER      :: CELL_DATA,VERTEX_DATA,X_FACE_DATA,Y_FACE_DATA
     INTEGER      :: depth,field_type,x_min,x_max,y_min,y_max
@@ -187,8 +187,8 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: field(-1:,-1:) ! This seems to work for any type of mesh data
-    REAL(KIND=8) :: right_rcv_buffer(:)
+    REAL(KIND=wp):: field(-1:,-1:) ! This seems to work for any type of mesh data
+    REAL(KIND=wp):: right_rcv_buffer(:)
 
     INTEGER      :: CELL_DATA,VERTEX_DATA,X_FACE_DATA,Y_FACE_DATA
     INTEGER      :: depth,field_type,x_min,x_max,y_min,y_max
@@ -238,8 +238,8 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: field(-1:,-1:) ! This seems to work for any type of mesh data
-    REAL(KIND=8) :: top_snd_buffer(:)
+    REAL(KIND=wp):: field(-1:,-1:) ! This seems to work for any type of mesh data
+    REAL(KIND=wp):: top_snd_buffer(:)
 
     INTEGER      :: CELL_DATA,VERTEX_DATA,X_FACE_DATA,Y_FACE_DATA
     INTEGER      :: depth,field_type,x_min,x_max,y_min,y_max
@@ -290,8 +290,8 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: field(-1:,-1:) ! This seems to work for any type of mesh data
-    REAL(KIND=8) :: top_rcv_buffer(:)
+    REAL(KIND=wp):: field(-1:,-1:) ! This seems to work for any type of mesh data
+    REAL(KIND=wp):: top_rcv_buffer(:)
 
     INTEGER      :: CELL_DATA,VERTEX_DATA,X_FACE_DATA,Y_FACE_DATA
     INTEGER      :: depth,field_type,x_min,x_max,y_min,y_max
@@ -342,8 +342,8 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: field(-1:,-1:) ! This seems to work for any type of mesh data
-    REAL(KIND=8) :: bottom_snd_buffer(:)
+    REAL(KIND=wp):: field(-1:,-1:) ! This seems to work for any type of mesh data
+    REAL(KIND=wp):: bottom_snd_buffer(:)
 
     INTEGER      :: CELL_DATA,VERTEX_DATA,X_FACE_DATA,Y_FACE_DATA
     INTEGER      :: depth,field_type,x_min,x_max,y_min,y_max
@@ -395,8 +395,8 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: field(-1:,-1:) ! This seems to work for any type of mesh data
-    REAL(KIND=8) :: bottom_rcv_buffer(:)
+    REAL(KIND=wp):: field(-1:,-1:) ! This seems to work for any type of mesh data
+    REAL(KIND=wp):: bottom_rcv_buffer(:)
 
     INTEGER      :: CELL_DATA,VERTEX_DATA,X_FACE_DATA,Y_FACE_DATA
     INTEGER      :: depth,field_type,x_min,x_max,y_min,y_max

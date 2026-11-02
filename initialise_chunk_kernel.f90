@@ -41,18 +41,18 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER      :: x_min,x_max,y_min,y_max
-    REAL(KIND=8) :: xmin,ymin,dx,dy
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3) :: vertexx
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3) :: vertexdx
-    REAL(KIND=8), DIMENSION(y_min-2:y_max+3) :: vertexy
-    REAL(KIND=8), DIMENSION(y_min-2:y_max+3) :: vertexdy
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2) :: cellx
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2) :: celldx
-    REAL(KIND=8), DIMENSION(y_min-2:y_max+2) :: celly
-    REAL(KIND=8), DIMENSION(y_min-2:y_max+2) :: celldy
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: volume
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3 ,y_min-2:y_max+2) :: xarea
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+3) :: yarea
+    REAL(KIND=wp):: xmin,ymin,dx,dy
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3) :: vertexx
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3) :: vertexdx
+    REAL(KIND=wp) DIMENSION(y_min-2:y_max+3) :: vertexy
+    REAL(KIND=wp) DIMENSION(y_min-2:y_max+3) :: vertexdy
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2) :: cellx
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2) :: celldx
+    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2) :: celly
+    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2) :: celldy
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3 ,y_min-2:y_max+2) :: xarea
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+3) :: yarea
 
     INTEGER      :: j,k
 !$ACC DATA

@@ -21,7 +21,7 @@
 !>  the fields specified.
 
 MODULE update_halo_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
 
 CONTAINS
 
@@ -34,7 +34,7 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER :: tile,fields(NUM_FIELDS),depth
-    REAL(KIND=8) :: kernel_time,timer
+    REAL(KIND=dp):: kernel_time,timer
 
       !TODO: fix the chunk comms phase
     IF(profiler_on) kernel_time=timer()

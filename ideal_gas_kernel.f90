@@ -34,14 +34,14 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: soundspeed
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: soundspeed
 
     INTEGER :: j,k
 
-    REAL(KIND=8) :: sound_speed_squared,v,pressurebyenergy,pressurebyvolume
+    REAL(KIND=wp):: sound_speed_squared,v,pressurebyenergy,pressurebyvolume
 
 !$ACC DATA &
 !$ACC PRESENT(density,energy,pressure,soundspeed)
@@ -50,9 +50,9 @@ CONTAINS
     DO k=y_min,y_max
 !$ACC LOOP INDEPENDENT PRIVATE(v,pressurebyenergy,pressurebyvolume,sound_speed_squared)
       DO j=x_min,x_max
-        v=1.0_8/density(j,k)
-        pressure(j,k)=(1.4_8-1.0_8)*density(j,k)*energy(j,k)
-        pressurebyenergy=(1.4_8-1.0_8)*density(j,k)
+        v=1.0_wp/density(j,k)
+        pressure(j,k)=(1.4_wp-1.0_wp)*density(j,k)*energy(j,k)
+        pressurebyenergy=(1.4_wp-1.0_wp)*density(j,k)
         pressurebyvolume=-density(j,k)*pressure(j,k)
         sound_speed_squared=v*v*(pressure(j,k)*pressurebyenergy-pressurebyvolume)
         soundspeed(j,k)=SQRT(sound_speed_squared)

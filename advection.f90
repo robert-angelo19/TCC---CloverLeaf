@@ -20,7 +20,7 @@
 !>  @details Controls the advection step and invokes required communications.
 
 MODULE advection_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
 
 CONTAINS
 
@@ -39,7 +39,7 @@ CONTAINS
 
     INTEGER :: fields(NUM_FIELDS)
 
-    REAL(KIND=8) :: kernel_time,timer
+    REAL(KIND=dp):: kernel_time,timer
 
     sweep_number=1
     IF(advect_x)      direction=g_xdir

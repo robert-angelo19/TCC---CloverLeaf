@@ -20,7 +20,7 @@
 !>  @details Invokes the used specified flux kernel
 
 MODULE flux_calc_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
 
 CONTAINS
 
@@ -33,7 +33,7 @@ CONTAINS
 
     INTEGER :: tile
 
-    REAL(KIND=8) :: kernel_time,timer
+    REAL(KIND=dp):: kernel_time,timer
 
     IF(profiler_on) kernel_time=timer()
 

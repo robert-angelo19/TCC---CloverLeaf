@@ -22,7 +22,7 @@
 !>  user specified limitand outputs the timestep information.
 
 MODULE timestep_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
 
 CONTAINS
 
@@ -41,10 +41,10 @@ CONTAINS
     INTEGER :: tile
     INTEGER :: jldt,kldt
 
-    REAL(KIND=8)    :: dtlp
-    REAL(KIND=8)    :: x_pos,y_pos,xl_pos,yl_pos
+    REAL(KIND=wp)   :: dtlp
+    REAL(KIND=wp)   :: x_pos,y_pos,xl_pos,yl_pos
 
-    REAL(KIND=8)    :: kernel_time,timer
+    REAL(KIND=dp)   :: kernel_time,timer
 
     CHARACTER(LEN=8) :: dt_control,dtl_control
 

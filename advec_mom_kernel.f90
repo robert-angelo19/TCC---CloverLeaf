@@ -52,28 +52,28 @@ CONTAINS
     INTEGER :: x_min,x_max,y_min,y_max
     INTEGER :: which_vel,sweep_number,direction
 
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: vel1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: mass_flux_x
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: mass_flux_y
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_flux
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_mass_post
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_mass_pre
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: mom_flux
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: pre_vol
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_vol
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: vel1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: mass_flux_x
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: mass_flux_y
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_flux
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_mass_post
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: node_mass_pre
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: mom_flux
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: pre_vol
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: post_vol
 
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2) :: celldx
-    REAL(KIND=8), DIMENSION(y_min-2:y_max+2) :: celldy
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2) :: celldx
+    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2) :: celldy
  
     INTEGER :: j,k,mom_sweep
     INTEGER :: upwind,donor,downwind,dif
-    REAL(KIND=8) :: sigma,wind,width
-    REAL(KIND=8) :: vdiffuw,vdiffdw,auw,adw,limiter
-    REAL(KIND=8) :: advec_vel_s
+    REAL(KIND=wp):: sigma,wind,width
+    REAL(KIND=wp):: vdiffuw,vdiffdw,auw,adw,limiter
+    REAL(KIND=wp):: advec_vel_s
 
     mom_sweep=direction+2*(sweep_number-1)
 
@@ -133,7 +133,7 @@ CONTAINS
 !$ACC LOOP INDEPENDENT
           DO j=x_min-2,x_max+2
             ! Find staggered mesh mass fluxes, nodal masses and volumes.
-            node_flux(j,k)=0.25_8*(mass_flux_x(j,k-1  )+mass_flux_x(j  ,k)  &
+            node_flux(j,k)=0.25_wp*(mass_flux_x(j,k-1  )+mass_flux_x(j  ,k)  &
               +mass_flux_x(j+1,k-1)+mass_flux_x(j+1,k))
           ENDDO
         ENDDO
@@ -143,7 +143,7 @@ CONTAINS
 !$ACC LOOP INDEPENDENT
           DO j=x_min-1,x_max+2
             ! Staggered cell mass post advection
-            node_mass_post(j,k)=0.25_8*(density1(j  ,k-1)*post_vol(j  ,k-1)                   &
+            node_mass_post(j,k)=0.25_wp*(density1(j  ,k-1)*post_vol(j  ,k-1)                   &
               +density1(j  ,k  )*post_vol(j  ,k  )                   &
               +density1(j-1,k-1)*post_vol(j-1,k-1)                   &
               +density1(j-1,k  )*post_vol(j-1,k  ))
@@ -175,9 +175,9 @@ CONTAINS
           IF(vdiffuw*vdiffdw.GT.0.0)THEN
             auw=ABS(vdiffuw)
             adw=ABS(vdiffdw)
-            wind=1.0_8
-            IF(vdiffdw.LE.0.0) wind=-1.0_8
-            limiter=wind*MIN(width*((2.0_8-sigma)*adw/width+(1.0_8+sigma)*auw/celldx(dif))/6.0_8,auw,adw)
+            wind=1.0_wp
+            IF(vdiffdw.LE.0.0) wind=-1.0_wp
+            limiter=wind*MIN(width*((2.0_wp*sigma)*adw/width+(1.0_wp+sigma)*auw/celldx(dif))/6.0_wp,auw,adw)
           ENDIF
           advec_vel_s=vel1(donor,k)+(1.0-sigma)*limiter
           mom_flux(j,k)=advec_vel_s*node_flux(j,k)
@@ -199,7 +199,7 @@ CONTAINS
 !$ACC LOOP INDEPENDENT
           DO j=x_min,x_max+1
             ! Find staggered mesh mass fluxes and nodal masses and volumes.
-            node_flux(j,k)=0.25_8*(mass_flux_y(j-1,k  )+mass_flux_y(j  ,k  ) &
+            node_flux(j,k)=0.25_wp*(mass_flux_y(j-1,k  )+mass_flux_y(j  ,k  ) &
               +mass_flux_y(j-1,k+1)+mass_flux_y(j  ,k+1))
           ENDDO
         ENDDO
@@ -208,7 +208,7 @@ CONTAINS
         DO k=y_min-1,y_max+2
 !$ACC LOOP INDEPENDENT
           DO j=x_min,x_max+1
-            node_mass_post(j,k)=0.25_8*(density1(j  ,k-1)*post_vol(j  ,k-1)                     &
+            node_mass_post(j,k)=0.25_wp*(density1(j  ,k-1)*post_vol(j  ,k-1)                     &
               +density1(j  ,k  )*post_vol(j  ,k  )                     &
               +density1(j-1,k-1)*post_vol(j-1,k-1)                     &
               +density1(j-1,k  )*post_vol(j-1,k  ))
@@ -240,11 +240,11 @@ CONTAINS
           IF(vdiffuw*vdiffdw.GT.0.0)THEN
             auw=ABS(vdiffuw)
             adw=ABS(vdiffdw)
-            wind=1.0_8
-            IF(vdiffdw.LE.0.0) wind=-1.0_8
-            limiter=wind*MIN(width*((2.0_8-sigma)*adw/width+(1.0_8+sigma)*auw/celldy(dif))/6.0_8,auw,adw)
+            wind=1.0_wp
+            IF(vdiffdw.LE.0.0) wind=-1.0_wp
+            limiter=wind*MIN(width*((2.0_wp*sigma)*adw/width+(1.0_wp+sigma)*auw/celldy(dif))/6.0_wp,auw,adw)
           ENDIF
-          advec_vel_s=vel1(j,donor)+(1.0_8-sigma)*limiter
+          advec_vel_s=vel1(j,donor)+(1.0_wp-sigma)*limiter
           mom_flux(j,k)=advec_vel_s*node_flux(j,k)
         ENDDO
       ENDDO

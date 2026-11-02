@@ -30,8 +30,8 @@ SUBROUTINE generate_chunk(tile)
   INTEGER         :: tile
 
   INTEGER         :: state
-  REAL(KIND=8), DIMENSION(number_of_states) :: state_density,state_energy,state_xvel,state_yvel
-  REAL(KIND=8), DIMENSION(number_of_states) :: state_xmin,state_xmax,state_ymin,state_ymax,state_radius
+  REAL(KIND=wp) DIMENSION(number_of_states) :: state_density,state_energy,state_xvel,state_yvel
+  REAL(KIND=wp) DIMENSION(number_of_states) :: state_xmin,state_xmax,state_ymin,state_ymax,state_radius
   INTEGER,      DIMENSION(number_of_states) :: state_geometry
 
   DO state=1,number_of_states

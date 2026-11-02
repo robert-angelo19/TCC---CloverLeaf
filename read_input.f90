@@ -32,7 +32,7 @@ SUBROUTINE read_input()
 
   INTEGER            :: state,stat,state_max,n
 
-  REAL(KIND=8) :: dx,dy
+  REAL(KIND=wp):: dx,dy
 
   CHARACTER(LEN=500) :: word
 
@@ -40,15 +40,15 @@ SUBROUTINE read_input()
 
   state_max=0
 
-  grid%xmin=  0.0_8
-  grid%ymin=  0.0_8
-  grid%xmax=100.0_8
-  grid%ymax=100.0_8
+  grid%xmin=  0.0_wp
+  grid%ymin=  0.0_wp
+  grid%xmax=100.0_wp
+  grid%ymax=100.0_wp
 
   grid%x_cells=10
   grid%y_cells=10
 
-  end_time=10.0_8
+  end_time=10.0_wp
   end_step=g_ibig
   complete=.FALSE.
 
@@ -57,14 +57,14 @@ SUBROUTINE read_input()
   
   tiles_per_chunk=1
 
-  dtinit=0.1_8
-  dtmax=1.0_8
-  dtmin=0.0000001_8
-  dtrise=1.5_8
-  dtc_safe=0.7_8
-  dtu_safe=0.5_8
-  dtv_safe=0.5_8
-  dtdiv_safe=0.7_8
+  dtinit=0.1_wp
+  dtmax=1.0_wp
+  dtmin=0.0000001_wp
+  dtrise=1.5_wp
+  dtc_safe=0.7_wp
+  dtu_safe=0.5_wp
+  dtv_safe=0.5_wp
+  dtdiv_safe=0.7_wp
 
   use_fortran_kernels=.TRUE.
   use_C_kernels=.FALSE.
@@ -275,10 +275,10 @@ SUBROUTINE read_input()
   dx=(grid%xmax-grid%xmin)/float(grid%x_cells)
   dy=(grid%ymax-grid%ymin)/float(grid%y_cells)
   DO n=2,number_of_states
-    states(n)%xmin=states(n)%xmin+(dx/100.0_8)
-    states(n)%ymin=states(n)%ymin+(dy/100.0_8)
-    states(n)%xmax=states(n)%xmax-(dx/100.0_8)
-    states(n)%ymax=states(n)%ymax-(dy/100.0_8)
+    states(n)%xmin=states(n)%xmin+(dx/100.0_wp)
+    states(n)%ymin=states(n)%ymin+(dy/100.0_wp)
+    states(n)%xmax=states(n)%xmax-(dx/100.0_wp)
+    states(n)%ymax=states(n)%ymax-(dy/100.0_wp)
   ENDDO
 
   ! Have to force the number of tiles to 1 for openacc

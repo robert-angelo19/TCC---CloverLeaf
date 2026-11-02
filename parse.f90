@@ -337,7 +337,7 @@ CONTAINS
     USE clover_module
 
     CHARACTER(LEN=*) :: word
-    REAL(KIND=8)   :: temp,parse_getrval
+    REAL(KIND=wp)  :: temp,parse_getrval
 
     INTEGER :: ios
 

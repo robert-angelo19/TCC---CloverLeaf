@@ -24,11 +24,11 @@ MODULE data_module
 
   IMPLICIT NONE
 
-  REAL(KIND=8), PARAMETER :: g_version=1.3
+  REAL(KIND=wp) PARAMETER :: g_version=1.3
 
   INTEGER,      PARAMETER :: g_ibig=640000
 
-  REAL(KIND=8), PARAMETER :: g_small=1.0e-16  &
+  REAL(KIND=wp) PARAMETER :: g_small=1.0e-16  &
     ,g_big  =1.0e+21
 
   INTEGER,      PARAMETER :: g_name_len_max=255 &

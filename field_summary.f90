@@ -27,21 +27,21 @@
 SUBROUTINE field_summary()
 
   USE clover_module
-    USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
   USE ideal_gas_module
   USE field_summary_kernel_module
 
   IMPLICIT NONE
 
-  REAL(KIND=8) :: vol,mass,ie,ke,press
-  REAL(KIND=8) :: t_vol,t_mass,t_ie,t_ke,t_press
-  REAL(KIND=8) :: qa_diff
+  REAL(KIND=wp):: vol,mass,ie,ke,press
+  REAL(KIND=wp):: t_vol,t_mass,t_ie,t_ke,t_press
+  REAL(KIND=wp):: qa_diff
 
   !$ INTEGER :: OMP_GET_THREAD_NUM
 
   INTEGER      :: tile
 
-  REAL(KIND=8) :: kernel_time,timer
+  REAL(KIND=dp):: kernel_time,timer
 
   IF(parallel%boss)THEN
     WRITE(g_out,*)
@@ -114,11 +114,11 @@ SUBROUTINE field_summary()
     IF(parallel%boss) THEN
       !$    IF(OMP_GET_THREAD_NUM().EQ.0) THEN
       IF(test_problem.GE.1) THEN
-        IF(test_problem.EQ.1) qa_diff=ABS((100.0_8*(ke/1.82280367310258_8))-100.0_8)
-        IF(test_problem.EQ.2) qa_diff=ABS((100.0_8*(ke/1.19316898756307_8))-100.0_8)
-        IF(test_problem.EQ.3) qa_diff=ABS((100.0_8*(ke/2.58984003503994_8))-100.0_8)
-        IF(test_problem.EQ.4) qa_diff=ABS((100.0_8*(ke/0.307475452287895_8))-100.0_8)
-        IF(test_problem.EQ.5) qa_diff=ABS((100.0_8*(ke/4.85350315783719_8))-100.0_8)
+        IF(test_problem.EQ.1) qa_diff=ABS((100.0_wp*(ke/1.82280367310258_wp))-100.0_wp)
+        IF(test_problem.EQ.2) qa_diff=ABS((100.0_wp*(ke/1.19316898756307_wp))-100.0_wp)
+        IF(test_problem.EQ.3) qa_diff=ABS((100.0_wp*(ke/2.58984003503994_wp))-100.0_wp)
+        IF(test_problem.EQ.4) qa_diff=ABS((100.0_wp*(ke/0.307475452287895_wp))-100.0_wp)
+        IF(test_problem.EQ.5) qa_diff=ABS((100.0_wp*(ke/4.85350315783719_wp))-100.0_wp)
         WRITE(*,'(a,i4,a,e16.7,a)')"Test problem", Test_problem," is within",qa_diff,"% of the expected solution"
         WRITE(g_out,'(a,i4,a,e16.7,a)')"Test problem", Test_problem," is within",qa_diff,"% of the expected solution"
         IF(qa_diff.LT.0.001) THEN

@@ -30,13 +30,14 @@
 !>  systems of the order of 10K cores.
 
 MODULE clover_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
 
   USE data_module
   USE definitions_module
   USE MPI
 
   IMPLICIT NONE
+  INTEGER, PARAMETER :: bytes_per_wp = STORAGE_SIZE(0.0_wp)/8
 
 CONTAINS
 
@@ -118,7 +119,7 @@ CONTAINS
     INTEGER :: x_cells,y_cells,left,right,top,bottom
     INTEGER :: c,delta_x,delta_y
 
-    REAL(KIND=8) :: mesh_ratio,factor_x,factor_y
+    REAL(KIND=wp):: mesh_ratio,factor_x,factor_y
     INTEGER  :: chunk_x,chunk_y,mod_x,mod_y,split_found
 
     INTEGER  :: cx,cy,cnk,add_x,add_y,add_x_prev,add_y_prev
@@ -703,17 +704,17 @@ CONTAINS
                                            tag_send, tag_recv,                    &
                                            req_send, req_recv)
 
-    REAL(KIND=8)    :: left_snd_buffer(:), left_rcv_buffer(:)
+    REAL(KIND=wp)   :: left_snd_buffer(:), left_rcv_buffer(:)
     INTEGER         :: left_task
     INTEGER         :: total_size, tag_send, tag_recv, err
     INTEGER         :: req_send, req_recv
 
     left_task =chunk%chunk_neighbours(chunk_left) - 1
 
-    CALL MPI_ISEND(left_snd_buffer,total_size,MPI_DOUBLE_PRECISION,left_task,tag_send &
+    CALL MPI_ISEND(left_snd_buffer,total_size*bytes_per_wp,MPI_BYTE,left_task,tag_send &
       ,MPI_COMM_WORLD,req_send,err)
 
-    CALL MPI_IRECV(left_rcv_buffer,total_size,MPI_DOUBLE_PRECISION,left_task,tag_recv &
+    CALL MPI_IRECV(left_rcv_buffer,total_size*bytes_per_wp,MPI_BYTE,left_task,tag_recv &
       ,MPI_COMM_WORLD,req_recv,err)
 
   END SUBROUTINE clover_send_recv_message_left
@@ -728,7 +729,7 @@ CONTAINS
 
     INTEGER         :: fields(:), tile, depth, t_offset
     INTEGER         :: left_right_offset(:)
-    REAL(KIND=8)    :: left_rcv_buffer(:)
+    REAL(KIND=wp)   :: left_rcv_buffer(:)
 
     t_offset = (chunk%tiles(tile)%t_bottom - chunk%bottom)*depth
 
@@ -1121,17 +1122,17 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: right_snd_buffer(:), right_rcv_buffer(:)
+    REAL(KIND=wp):: right_snd_buffer(:), right_rcv_buffer(:)
     INTEGER      :: right_task
     INTEGER      :: total_size, tag_send, tag_recv, err
     INTEGER      :: req_send, req_recv
 
     right_task=chunk%chunk_neighbours(chunk_right) - 1
 
-    CALL MPI_ISEND(right_snd_buffer,total_size,MPI_DOUBLE_PRECISION,right_task,tag_send, &
+    CALL MPI_ISEND(right_snd_buffer,total_size*bytes_per_wp,MPI_BYTE,right_task,tag_send, &
       MPI_COMM_WORLD,req_send,err)
 
-    CALL MPI_IRECV(right_rcv_buffer,total_size,MPI_DOUBLE_PRECISION,right_task,tag_recv, &
+    CALL MPI_IRECV(right_rcv_buffer,total_size*bytes_per_wp,MPI_BYTE,right_task,tag_recv, &
       MPI_COMM_WORLD,req_recv,err)
 
   END SUBROUTINE clover_send_recv_message_right
@@ -1145,7 +1146,7 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER         :: fields(:), tile, total_in_right_buff, depth, left_right_offset(:), t_offset
-    REAL(KIND=8)    :: right_rcv_buffer(:)
+    REAL(KIND=wp)   :: right_rcv_buffer(:)
   
     t_offset = (chunk%tiles(tile)%t_bottom - chunk%bottom)*depth
 
@@ -1535,17 +1536,17 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: top_snd_buffer(:), top_rcv_buffer(:)
+    REAL(KIND=wp):: top_snd_buffer(:), top_rcv_buffer(:)
     INTEGER      :: top_task
     INTEGER      :: total_size, tag_send, tag_recv, err
     INTEGER      :: req_send, req_recv
 
     top_task=chunk%chunk_neighbours(chunk_top) - 1
 
-    CALL MPI_ISEND(top_snd_buffer,total_size,MPI_DOUBLE_PRECISION,top_task,tag_send, &
+    CALL MPI_ISEND(top_snd_buffer,total_size*bytes_per_wp,MPI_BYTE,top_task,tag_send, &
       MPI_COMM_WORLD,req_send,err)
 
-    CALL MPI_IRECV(top_rcv_buffer,total_size,MPI_DOUBLE_PRECISION,top_task,tag_recv, &
+    CALL MPI_IRECV(top_rcv_buffer,total_size*bytes_per_wp,MPI_BYTE,top_task,tag_recv, &
       MPI_COMM_WORLD,req_recv,err)
 
   END SUBROUTINE clover_send_recv_message_top
@@ -1559,7 +1560,7 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER         :: fields(:), tile, total_in_top_buff, depth, bottom_top_offset(:), t_offset
-    REAL(KIND=8)    :: top_rcv_buffer(:)
+    REAL(KIND=wp)   :: top_rcv_buffer(:)
   
     t_offset = (chunk%tiles(tile)%t_left - chunk%left)*depth
 
@@ -1950,17 +1951,17 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: bottom_snd_buffer(:), bottom_rcv_buffer(:)
+    REAL(KIND=wp):: bottom_snd_buffer(:), bottom_rcv_buffer(:)
     INTEGER      :: bottom_task
     INTEGER      :: total_size, tag_send, tag_recv, err
     INTEGER      :: req_send, req_recv
 
     bottom_task=chunk%chunk_neighbours(chunk_bottom) - 1
 
-    CALL MPI_ISEND(bottom_snd_buffer,total_size,MPI_DOUBLE_PRECISION,bottom_task,tag_send &
+    CALL MPI_ISEND(bottom_snd_buffer,total_size*bytes_per_wp,MPI_BYTE,bottom_task,tag_send &
       ,MPI_COMM_WORLD,req_send,err)
 
-    CALL MPI_IRECV(bottom_rcv_buffer,total_size,MPI_DOUBLE_PRECISION,bottom_task,tag_recv &
+    CALL MPI_IRECV(bottom_rcv_buffer,total_size*bytes_per_wp,MPI_BYTE,bottom_task,tag_recv &
       ,MPI_COMM_WORLD,req_recv,err)
 
   END SUBROUTINE clover_send_recv_message_bottom
@@ -1974,7 +1975,7 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER         :: fields(:), tile, depth, bottom_top_offset(:), t_offset
-    REAL(KIND=8)    :: bottom_rcv_buffer(:)
+    REAL(KIND=wp)   :: bottom_rcv_buffer(:)
   
     t_offset = (chunk%tiles(tile)%t_left - chunk%left)*depth
 
@@ -2168,17 +2169,17 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: value
-
-    REAL(KIND=8) :: total
+    REAL(KIND=wp) :: value
+    REAL(KIND=dp) :: value_dp, total_dp
 
     INTEGER :: err
 
-    total=value
+    value_dp=REAL(value,KIND=dp)
+    total_dp=value_dp
 
-    CALL MPI_REDUCE(value,total,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,MPI_COMM_WORLD,err)
+    CALL MPI_REDUCE(value_dp,total_dp,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,MPI_COMM_WORLD,err)
 
-    value=total
+    value=REAL(total_dp,KIND=wp)
 
   END SUBROUTINE clover_sum
 
@@ -2186,17 +2187,17 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: value
-
-    REAL(KIND=8) :: minimum
+    REAL(KIND=wp) :: value
+    REAL(KIND=dp) :: value_dp, minimum_dp
 
     INTEGER :: err
 
-    minimum=value
+    value_dp=REAL(value,KIND=dp)
+    minimum_dp=value_dp
 
-    CALL MPI_ALLREDUCE(value,minimum,1,MPI_DOUBLE_PRECISION,MPI_MIN,MPI_COMM_WORLD,err)
+    CALL MPI_ALLREDUCE(value_dp,minimum_dp,1,MPI_DOUBLE_PRECISION,MPI_MIN,MPI_COMM_WORLD,err)
 
-    value=minimum
+    value=REAL(minimum_dp,KIND=wp)
 
   END SUBROUTINE clover_min
 
@@ -2204,17 +2205,17 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: value
-
-    REAL(KIND=8) :: maximum
+    REAL(KIND=wp) :: value
+    REAL(KIND=dp) :: value_dp, maximum_dp
 
     INTEGER :: err
 
-    maximum=value
+    value_dp=REAL(value,KIND=dp)
+    maximum_dp=value_dp
 
-    CALL MPI_ALLREDUCE(value,maximum,1,MPI_DOUBLE_PRECISION,MPI_MAX,MPI_COMM_WORLD,err)
+    CALL MPI_ALLREDUCE(value_dp,maximum_dp,1,MPI_DOUBLE_PRECISION,MPI_MAX,MPI_COMM_WORLD,err)
 
-    value=maximum
+    value=REAL(maximum_dp,KIND=wp)
 
   END SUBROUTINE clover_max
 
@@ -2222,15 +2223,18 @@ CONTAINS
 
     IMPLICIT NONE
 
-    REAL(KIND=8) :: value
-
-    REAL(KIND=8) :: values(parallel%max_task)
+    REAL(KIND=wp) :: value
+    REAL(KIND=wp) :: values(parallel%max_task)
+    REAL(KIND=dp) :: value_dp
+    REAL(KIND=dp) :: values_dp(parallel%max_task)
 
     INTEGER :: err
 
     values(1)=value ! Just to ensure it will work in serial
 
-    CALL MPI_ALLGATHER(value,1,MPI_DOUBLE_PRECISION,values,1,MPI_DOUBLE_PRECISION,MPI_COMM_WORLD,err)
+    value_dp=REAL(value,KIND=dp)
+    CALL MPI_ALLGATHER(value_dp,1,MPI_DOUBLE_PRECISION,values_dp,1,MPI_DOUBLE_PRECISION,MPI_COMM_WORLD,err)
+    values=REAL(values_dp,KIND=wp)
 
   END SUBROUTINE clover_allgather
 

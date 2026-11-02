@@ -32,9 +32,9 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER          :: tile
-    REAL(KIND=8)     :: local_dt
+    REAL(KIND=wp)    :: local_dt
     CHARACTER(LEN=8) :: local_control
-    REAL(KIND=8)     :: xl_pos,yl_pos
+    REAL(KIND=wp)    :: xl_pos,yl_pos
     INTEGER          :: jldt,kldt
 
     INTEGER          :: l_control

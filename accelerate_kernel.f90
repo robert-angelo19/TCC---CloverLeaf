@@ -39,21 +39,21 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER               :: x_min,x_max,y_min,y_max
-    REAL(KIND=8)          :: dt
+    REAL(KIND=wp)         :: dt
 
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: density0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: volume
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3 ,y_min-2:y_max+2) :: xarea
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+3) :: yarea
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: pressure
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: viscosity
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3 ,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3 ,y_min-2:y_max+3) :: xvel1,yvel1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: density0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3 ,y_min-2:y_max+2) :: xarea
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+3) :: yarea
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: pressure
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2 ,y_min-2:y_max+2) :: viscosity
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3 ,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3 ,y_min-2:y_max+3) :: xvel1,yvel1
 
     INTEGER               :: j,k
-    REAL(KIND=8)          :: nodal_mass,stepbymass_s,halfdt
+    REAL(KIND=wp)         :: nodal_mass,stepbymass_s,halfdt
 
-    halfdt=0.5_8*dt
+    halfdt=0.5_wp*dt
 !$ACC DATA &
 !$ACC PRESENT(density0,volume,pressure,viscosity,xarea,yarea,xvel0,yvel0)&
 !$ACC PRESENT(xvel1,yvel1)
@@ -68,7 +68,7 @@ CONTAINS
           +density0(j  ,k-1)*volume(j  ,k-1)  &
           +density0(j  ,k  )*volume(j  ,k  )  &
           +density0(j-1,k  )*volume(j-1,k  )) &
-          *0.25_8)
+          *0.25_wp)
 
         xvel1(j,k)=xvel0(j,k)-stepbymass_s*(xarea(j  ,k  )*(pressure(j  ,k  )-pressure(j-1,k  ))    &
           +xarea(j  ,k-1)*(pressure(j  ,k-1)-pressure(j-1,k-1)))

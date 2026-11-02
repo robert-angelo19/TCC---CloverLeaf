@@ -29,7 +29,7 @@ SUBROUTINE initialise_chunk(tile)
 
   INTEGER :: tile
 
-  REAL(KIND=8) :: xmin,ymin,dx,dy
+  REAL(KIND=wp):: xmin,ymin,dx,dy
 
   dx=(grid%xmax-grid%xmin)/float(grid%x_cells)
   dy=(grid%ymax-grid%ymin)/float(grid%y_cells)

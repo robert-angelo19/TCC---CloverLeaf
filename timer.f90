@@ -22,12 +22,12 @@
 
 
 FUNCTION timer()
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: dp
 
 
   IMPLICIT none
 
-  REAL(KIND=8) :: timer
+  REAL(KIND=dp) :: timer
   
   CALL timer_c(timer)
 

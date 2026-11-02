@@ -25,7 +25,7 @@
 SUBROUTINE visit
 
   USE clover_module
-    USE precision_mod, ONLY: wp
+    USE precision_mod, ONLY: wp, dp
   USE update_halo_module
   USE viscosity_module
   USE ideal_gas_module
@@ -34,7 +34,7 @@ SUBROUTINE visit
 
   INTEGER :: j,k,c,err,get_unit,u,dummy,tile
   INTEGER :: nxc,nyc,nxv,nyv,nblocks
-  REAL(KIND=8)    :: temp_var
+  REAL(KIND=wp)   :: temp_var
 
   CHARACTER(len=80)           :: name
   CHARACTER(len=10)           :: chunk_name,tile_name,step_name
@@ -44,7 +44,7 @@ SUBROUTINE visit
 
   INTEGER :: fields(NUM_FIELDS)
 
-  REAL(KIND=8) :: kernel_time,timer
+  REAL(KIND=dp):: kernel_time,timer
 
   name = 'clover'
   IF ( parallel%boss ) THEN
@@ -207,14 +207,14 @@ SUBROUTINE update_host_data(x_min,x_max,y_min,y_max, &
     IMPLICIT NONE
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: yvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3) :: vertexx
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3) :: vertexy
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: yvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3) :: vertexx
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3) :: vertexy
 
 !$ACC DATA &
 !$ACC PRESENT(density0)  &

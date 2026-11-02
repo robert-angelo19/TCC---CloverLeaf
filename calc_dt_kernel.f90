@@ -57,31 +57,31 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=8)  :: g_small,g_big,dtmin,dt_min_val
-    REAL(KIND=8)  :: dtc_safe,dtu_safe,dtv_safe,dtdiv_safe
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: xarea
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: yarea
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2)             :: cellx
-    REAL(KIND=8), DIMENSION(y_min-2:y_max+2)             :: celly
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2)             :: celldx
-    REAL(KIND=8), DIMENSION(y_min-2:y_max+2)             :: celldy
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity_a
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: soundspeed
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: dt_min
+    REAL(KIND=wp) :: g_small,g_big,dtmin,dt_min_val
+    REAL(KIND=wp) :: dtc_safe,dtu_safe,dtv_safe,dtdiv_safe
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: xarea
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: yarea
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2)             :: cellx
+    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2)             :: celly
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2)             :: celldx
+    REAL(KIND=wp) DIMENSION(y_min-2:y_max+2)             :: celldy
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: energy0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity_a
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: soundspeed
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: dt_min
 
     INTEGER          :: dtl_control
-    REAL(KIND=8)     :: xl_pos,yl_pos
+    REAL(KIND=wp)    :: xl_pos,yl_pos
     INTEGER          :: jldt,kldt
     INTEGER          :: small
 
     INTEGER          :: j,k
 
-    REAL(KIND=8)     :: div,dsx,dsy,dtut,dtvt,dtct,dtdivt,cc,dv1,dv2,jk_control
+    REAL(KIND=wp)    :: div,dsx,dsy,dtut,dtvt,dtct,dtdivt,cc,dv1,dv2,jk_control
 
     small=0
     dt_min_val = g_big
@@ -104,7 +104,7 @@ CONTAINS
         dsy=celldy(k)
 
         cc=soundspeed(j,k)*soundspeed(j,k)
-        cc=cc+2.0_8*viscosity_a(j,k)/density0(j,k)
+        cc=cc+2.0_wp*viscosity_a(j,k)/density0(j,k)
         cc=MAX(SQRT(cc),g_small)
 
         dtct=dtc_safe*MIN(dsx,dsy)/cc
@@ -116,19 +116,19 @@ CONTAINS
 
         div=div+dv2-dv1
 
-        dtut=dtu_safe*2.0_8*volume(j,k)/MAX(ABS(dv1),ABS(dv2),g_small*volume(j,k))
+        dtut=dtu_safe*2.0_wp*volume(j,k)/MAX(ABS(dv1),ABS(dv2),g_small*volume(j,k))
 
         dv1=(yvel0(j,k  )+yvel0(j+1,k  ))*yarea(j,k  )
         dv2=(yvel0(j,k+1)+yvel0(j+1,k+1))*yarea(j,k+1)
 
         div=div+dv2-dv1
 
-        dtvt=dtv_safe*2.0_8*volume(j,k)/MAX(ABS(dv1),ABS(dv2),g_small*volume(j,k))
+        dtvt=dtv_safe*2.0_wp*volume(j,k)/MAX(ABS(dv1),ABS(dv2),g_small*volume(j,k))
 
-        div=div/(2.0_8*volume(j,k))
+        div=div/(2.0_wp*volume(j,k))
 
         IF(div.LT.-g_small)THEN
-          dtdivt=dtdiv_safe*(-1.0_8/div)
+          dtdivt=dtdiv_safe*(-1.0_wp/div)
         ELSE
           dtdivt=g_big
         ENDIF

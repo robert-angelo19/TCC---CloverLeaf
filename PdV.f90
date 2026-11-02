@@ -20,7 +20,7 @@
 !>  @details Invokes the user specified kernel for the PdV update.
 
 MODULE PdV_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
 
 CONTAINS
 
@@ -42,7 +42,7 @@ CONTAINS
     INTEGER :: tile
     INTEGER :: fields(NUM_FIELDS)
 
-    REAL(KIND=8) :: kernel_time,timer
+    REAL(KIND=dp):: kernel_time,timer
 
     error_condition=0 ! Not used yet due to issue with OpenA reduction
 

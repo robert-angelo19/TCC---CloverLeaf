@@ -20,7 +20,7 @@
 !>  @details Calls user requested kernel
 
 MODULE accelerate_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
 
 CONTAINS
 
@@ -33,7 +33,7 @@ CONTAINS
 
     INTEGER :: tile
 
-    REAL(KIND=8) :: kernel_time,timer
+    REAL(KIND=dp):: kernel_time,timer
 
     IF(profiler_on) kernel_time=timer()
   

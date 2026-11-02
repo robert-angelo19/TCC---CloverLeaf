@@ -67,21 +67,21 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
     INTEGER :: left_xmin, left_xmax, left_ymin, left_ymax
-    REAL(KIND=8), DIMENSION(left_xmin-2:left_xmax+2,left_ymin-2:left_ymax+2) :: left_density0,left_energy0
-    REAL(KIND=8), DIMENSION(left_xmin-2:left_xmax+2,left_ymin-2:left_ymax+2) :: left_pressure,left_viscosity,left_soundspeed
-    REAL(KIND=8), DIMENSION(left_xmin-2:left_xmax+2,left_ymin-2:left_ymax+2) :: left_density1,left_energy1
-    REAL(KIND=8), DIMENSION(left_xmin-2:left_xmax+3,left_ymin-2:left_ymax+3) :: left_xvel0,left_yvel0
-    REAL(KIND=8), DIMENSION(left_xmin-2:left_xmax+3,left_ymin-2:left_ymax+3) :: left_xvel1,left_yvel1
-    REAL(KIND=8), DIMENSION(left_xmin-2:left_xmax+3,left_ymin-2:left_ymax+2) :: left_vol_flux_x,left_mass_flux_x
-    REAL(KIND=8), DIMENSION(left_xmin-2:left_xmax+2,left_ymin-2:left_ymax+3) :: left_vol_flux_y,left_mass_flux_y
+    REAL(KIND=wp) DIMENSION(left_xmin-2:left_xmax+2,left_ymin-2:left_ymax+2) :: left_density0,left_energy0
+    REAL(KIND=wp) DIMENSION(left_xmin-2:left_xmax+2,left_ymin-2:left_ymax+2) :: left_pressure,left_viscosity,left_soundspeed
+    REAL(KIND=wp) DIMENSION(left_xmin-2:left_xmax+2,left_ymin-2:left_ymax+2) :: left_density1,left_energy1
+    REAL(KIND=wp) DIMENSION(left_xmin-2:left_xmax+3,left_ymin-2:left_ymax+3) :: left_xvel0,left_yvel0
+    REAL(KIND=wp) DIMENSION(left_xmin-2:left_xmax+3,left_ymin-2:left_ymax+3) :: left_xvel1,left_yvel1
+    REAL(KIND=wp) DIMENSION(left_xmin-2:left_xmax+3,left_ymin-2:left_ymax+2) :: left_vol_flux_x,left_mass_flux_x
+    REAL(KIND=wp) DIMENSION(left_xmin-2:left_xmax+2,left_ymin-2:left_ymax+3) :: left_vol_flux_y,left_mass_flux_y
 
     INTEGER :: fields(:),depth
 
@@ -335,21 +335,21 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
     INTEGER :: right_xmin, right_xmax, right_ymin, right_ymax
-    REAL(KIND=8), DIMENSION(right_xmin-2:right_xmax+2,right_ymin-2:right_ymax+2) :: right_density0,right_energy0
-    REAL(KIND=8), DIMENSION(right_xmin-2:right_xmax+2,right_ymin-2:right_ymax+2) :: right_pressure,right_viscosity,right_soundspeed
-    REAL(KIND=8), DIMENSION(right_xmin-2:right_xmax+2,right_ymin-2:right_ymax+2) :: right_density1,right_energy1
-    REAL(KIND=8), DIMENSION(right_xmin-2:right_xmax+3,right_ymin-2:right_ymax+3) :: right_xvel0,right_yvel0
-    REAL(KIND=8), DIMENSION(right_xmin-2:right_xmax+3,right_ymin-2:right_ymax+3) :: right_xvel1,right_yvel1
-    REAL(KIND=8), DIMENSION(right_xmin-2:right_xmax+3,right_ymin-2:right_ymax+2) :: right_vol_flux_x,right_mass_flux_x
-    REAL(KIND=8), DIMENSION(right_xmin-2:right_xmax+2,right_ymin-2:right_ymax+3) :: right_vol_flux_y,right_mass_flux_y
+    REAL(KIND=wp) DIMENSION(right_xmin-2:right_xmax+2,right_ymin-2:right_ymax+2) :: right_density0,right_energy0
+    REAL(KIND=wp) DIMENSION(right_xmin-2:right_xmax+2,right_ymin-2:right_ymax+2) :: right_pressure,right_viscosity,right_soundspeed
+    REAL(KIND=wp) DIMENSION(right_xmin-2:right_xmax+2,right_ymin-2:right_ymax+2) :: right_density1,right_energy1
+    REAL(KIND=wp) DIMENSION(right_xmin-2:right_xmax+3,right_ymin-2:right_ymax+3) :: right_xvel0,right_yvel0
+    REAL(KIND=wp) DIMENSION(right_xmin-2:right_xmax+3,right_ymin-2:right_ymax+3) :: right_xvel1,right_yvel1
+    REAL(KIND=wp) DIMENSION(right_xmin-2:right_xmax+3,right_ymin-2:right_ymax+2) :: right_vol_flux_x,right_mass_flux_x
+    REAL(KIND=wp) DIMENSION(right_xmin-2:right_xmax+2,right_ymin-2:right_ymax+3) :: right_vol_flux_y,right_mass_flux_y
 
     INTEGER :: fields(:),depth
 
@@ -604,21 +604,21 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
     INTEGER :: top_xmin, top_xmax, top_ymin, top_ymax
-    REAL(KIND=8), DIMENSION(top_xmin-2:top_xmax+2,top_ymin-2:top_ymax+2) :: top_density0,top_energy0
-    REAL(KIND=8), DIMENSION(top_xmin-2:top_xmax+2,top_ymin-2:top_ymax+2) :: top_pressure,top_viscosity,top_soundspeed
-    REAL(KIND=8), DIMENSION(top_xmin-2:top_xmax+2,top_ymin-2:top_ymax+2) :: top_density1,top_energy1
-    REAL(KIND=8), DIMENSION(top_xmin-2:top_xmax+3,top_ymin-2:top_ymax+3) :: top_xvel0,top_yvel0
-    REAL(KIND=8), DIMENSION(top_xmin-2:top_xmax+3,top_ymin-2:top_ymax+3) :: top_xvel1,top_yvel1
-    REAL(KIND=8), DIMENSION(top_xmin-2:top_xmax+3,top_ymin-2:top_ymax+2) :: top_vol_flux_x,top_mass_flux_x
-    REAL(KIND=8), DIMENSION(top_xmin-2:top_xmax+2,top_ymin-2:top_ymax+3) :: top_vol_flux_y,top_mass_flux_y
+    REAL(KIND=wp) DIMENSION(top_xmin-2:top_xmax+2,top_ymin-2:top_ymax+2) :: top_density0,top_energy0
+    REAL(KIND=wp) DIMENSION(top_xmin-2:top_xmax+2,top_ymin-2:top_ymax+2) :: top_pressure,top_viscosity,top_soundspeed
+    REAL(KIND=wp) DIMENSION(top_xmin-2:top_xmax+2,top_ymin-2:top_ymax+2) :: top_density1,top_energy1
+    REAL(KIND=wp) DIMENSION(top_xmin-2:top_xmax+3,top_ymin-2:top_ymax+3) :: top_xvel0,top_yvel0
+    REAL(KIND=wp) DIMENSION(top_xmin-2:top_xmax+3,top_ymin-2:top_ymax+3) :: top_xvel1,top_yvel1
+    REAL(KIND=wp) DIMENSION(top_xmin-2:top_xmax+3,top_ymin-2:top_ymax+2) :: top_vol_flux_x,top_mass_flux_x
+    REAL(KIND=wp) DIMENSION(top_xmin-2:top_xmax+2,top_ymin-2:top_ymax+3) :: top_vol_flux_y,top_mass_flux_y
 
     INTEGER :: fields(:),depth
 
@@ -871,27 +871,27 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure,viscosity,soundspeed
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: vol_flux_x,mass_flux_x
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: vol_flux_y,mass_flux_y
     INTEGER :: bottom_xmin, bottom_xmax, bottom_ymin, bottom_ymax
-    REAL(KIND=8), DIMENSION(bottom_xmin-2:bottom_xmax+2,bottom_ymin-2:bottom_ymax+2) :: &
+    REAL(KIND=wp) DIMENSION(bottom_xmin-2:bottom_xmax+2,bottom_ymin-2:bottom_ymax+2) :: &
       bottom_density0,bottom_energy0
-    REAL(KIND=8), DIMENSION(bottom_xmin-2:bottom_xmax+2,bottom_ymin-2:bottom_ymax+2) :: &
+    REAL(KIND=wp) DIMENSION(bottom_xmin-2:bottom_xmax+2,bottom_ymin-2:bottom_ymax+2) :: &
       bottom_pressure,bottom_viscosity,bottom_soundspeed
-    REAL(KIND=8), DIMENSION(bottom_xmin-2:bottom_xmax+2,bottom_ymin-2:bottom_ymax+2) :: &
+    REAL(KIND=wp) DIMENSION(bottom_xmin-2:bottom_xmax+2,bottom_ymin-2:bottom_ymax+2) :: &
       bottom_density1,bottom_energy1
-    REAL(KIND=8), DIMENSION(bottom_xmin-2:bottom_xmax+3,bottom_ymin-2:bottom_ymax+3) :: &
+    REAL(KIND=wp) DIMENSION(bottom_xmin-2:bottom_xmax+3,bottom_ymin-2:bottom_ymax+3) :: &
       bottom_xvel0,bottom_yvel0
-    REAL(KIND=8), DIMENSION(bottom_xmin-2:bottom_xmax+3,bottom_ymin-2:bottom_ymax+3) :: &
+    REAL(KIND=wp) DIMENSION(bottom_xmin-2:bottom_xmax+3,bottom_ymin-2:bottom_ymax+3) :: &
       bottom_xvel1,bottom_yvel1
-    REAL(KIND=8), DIMENSION(bottom_xmin-2:bottom_xmax+3,bottom_ymin-2:bottom_ymax+2) :: &
+    REAL(KIND=wp) DIMENSION(bottom_xmin-2:bottom_xmax+3,bottom_ymin-2:bottom_ymax+2) :: &
       bottom_vol_flux_x,bottom_mass_flux_x
-    REAL(KIND=8), DIMENSION(bottom_xmin-2:bottom_xmax+2,bottom_ymin-2:bottom_ymax+3) :: &
+    REAL(KIND=wp) DIMENSION(bottom_xmin-2:bottom_xmax+2,bottom_ymin-2:bottom_ymax+3) :: &
       bottom_vol_flux_y,bottom_mass_flux_y
 
     INTEGER :: fields(:),depth

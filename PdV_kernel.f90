@@ -47,23 +47,23 @@ CONTAINS
     LOGICAL :: predict
 
     INTEGER :: x_min,x_max,y_min,y_max
-    REAL(KIND=8)  :: dt
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: xarea
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: yarea
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
-    REAL(KIND=8), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: volume_change
+    REAL(KIND=wp) :: dt
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: xarea
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: yarea
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: volume
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density0,energy0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: pressure
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: density1,energy1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+2,y_min-2:y_max+2) :: viscosity
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel0,yvel0
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: xvel1,yvel1
+    REAL(KIND=wp) DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3) :: volume_change
 
     INTEGER :: j,k
 
-    REAL(KIND=8)  :: recip_volume,energy_change,min_cell_volume
-    REAL(KIND=8)  :: right_flux,left_flux,top_flux,bottom_flux,total_flux
-    REAL(KIND=8)  :: volume_change_s
+    REAL(KIND=wp) :: recip_volume,energy_change,min_cell_volume
+    REAL(KIND=wp) :: right_flux,left_flux,top_flux,bottom_flux,total_flux
+    REAL(KIND=wp) :: volume_change_s
 
 !$ACC DATA &
 !$ACC PRESENT(density0,energy0,pressure,viscosity,volume,xarea) &
@@ -81,13 +81,13 @@ CONTAINS
         DO j=x_min,x_max
 
           left_flux=  (xarea(j  ,k  )*(xvel0(j  ,k  )+xvel0(j  ,k+1)                     &
-            +xvel0(j  ,k  )+xvel0(j  ,k+1)))*0.25_8*dt*0.5
+            +xvel0(j  ,k  )+xvel0(j  ,k+1)))*0.25_wp*dt*0.5
           right_flux= (xarea(j+1,k  )*(xvel0(j+1,k  )+xvel0(j+1,k+1)                     &
-            +xvel0(j+1,k  )+xvel0(j+1,k+1)))*0.25_8*dt*0.5
+            +xvel0(j+1,k  )+xvel0(j+1,k+1)))*0.25_wp*dt*0.5
           bottom_flux=(yarea(j  ,k  )*(yvel0(j  ,k  )+yvel0(j+1,k  )                     &
-            +yvel0(j  ,k  )+yvel0(j+1,k  )))*0.25_8*dt*0.5
+            +yvel0(j  ,k  )+yvel0(j+1,k  )))*0.25_wp*dt*0.5
           top_flux=   (yarea(j  ,k+1)*(yvel0(j  ,k+1)+yvel0(j+1,k+1)                     &
-            +yvel0(j  ,k+1)+yvel0(j+1,k+1)))*0.25_8*dt*0.5
+            +yvel0(j  ,k+1)+yvel0(j+1,k+1)))*0.25_wp*dt*0.5
           total_flux=right_flux-left_flux+top_flux-bottom_flux
 
           volume_change_s=volume(j,k)/(volume(j,k)+total_flux)
@@ -118,13 +118,13 @@ CONTAINS
         DO j=x_min,x_max
 
           left_flux=  (xarea(j  ,k  )*(xvel0(j  ,k  )+xvel0(j  ,k+1)                     &
-            +xvel1(j  ,k  )+xvel1(j  ,k+1)))*0.25_8*dt
+            +xvel1(j  ,k  )+xvel1(j  ,k+1)))*0.25_wp*dt
           right_flux= (xarea(j+1,k  )*(xvel0(j+1,k  )+xvel0(j+1,k+1)                     &
-            +xvel1(j+1,k  )+xvel1(j+1,k+1)))*0.25_8*dt
+            +xvel1(j+1,k  )+xvel1(j+1,k+1)))*0.25_wp*dt
           bottom_flux=(yarea(j  ,k  )*(yvel0(j  ,k  )+yvel0(j+1,k  )                     &
-            +yvel1(j  ,k  )+yvel1(j+1,k  )))*0.25_8*dt
+            +yvel1(j  ,k  )+yvel1(j+1,k  )))*0.25_wp*dt
           top_flux=   (yarea(j  ,k+1)*(yvel0(j  ,k+1)+yvel0(j+1,k+1)                     &
-            +yvel1(j  ,k+1)+yvel1(j+1,k+1)))*0.25_8*dt
+            +yvel1(j  ,k+1)+yvel1(j+1,k+1)))*0.25_wp*dt
           total_flux=right_flux-left_flux+top_flux-bottom_flux
 
           volume_change_s=volume(j,k)/(volume(j,k)+total_flux)
