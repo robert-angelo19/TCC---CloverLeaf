@@ -22,6 +22,7 @@
 
 MODULE ideal_gas_kernel_module
   USE precision_mod, ONLY: wp
+  USE wmma
 
 CONTAINS
 

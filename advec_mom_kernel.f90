@@ -24,6 +24,7 @@
 
 MODULE advec_mom_kernel_mod
   USE precision_mod, ONLY: wp
+  USE wmma
 
 CONTAINS
 

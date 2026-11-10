@@ -28,6 +28,7 @@ SUBROUTINE field_summary()
 
   USE clover_module
   USE precision_mod, ONLY: wp, dp
+  USE wmma
   USE ideal_gas_module
   USE field_summary_kernel_module
 

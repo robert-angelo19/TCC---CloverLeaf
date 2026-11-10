@@ -25,6 +25,7 @@
 
 MODULE generate_chunk_kernel_module
   USE precision_mod, ONLY: wp
+  USE wmma
 
 CONTAINS
 

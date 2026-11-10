@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatório técnico: precisão reduzida no CloverLeaf OpenACC</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17252f;
+      --muted: #52616a;
+      --accent: #145b55;
+      --line: #c9d4d1;
+      --paper: #fff;
+      --wash: #edf3f1;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #dfe7e4;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 11pt;
+      line-height: 1.48;
+    }
+    main {
+      width: min(210mm, 100%);
+      min-height: 297mm;
+      margin: 24px auto;
+      padding: 22mm 21mm 20mm;
+      background: var(--paper);
+      box-shadow: 0 8px 28px #142b3020;
+    }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font: 700 9pt/1.2 "Segoe UI", Arial, sans-serif;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 650px;
+      margin: 0;
+      font-size: 27pt;
+      line-height: 1.12;
+      font-weight: 700;
+    }
+    .subtitle { margin: 12px 0 20px; color: var(--muted); font-size: 12pt; }
+    .meta { display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font: 9.5pt "Segoe UI", Arial, sans-serif; }
+    .meta strong { color: var(--accent); }
+    h2 { margin: 24px 0 8px; color: var(--accent); font-size: 15pt; line-height: 1.2; }
+    h3 { margin: 15px 0 5px; font-size: 11.5pt; }
+    p { margin: 7px 0; }
+    ul, ol { margin: 6px 0 8px; padding-left: 21px; }
+    li { margin: 4px 0; }
+    code { padding: 1px 4px; background: var(--wash); font: 9.5pt Consolas, "Courier New", monospace; }
+    .summary { margin: 18px 0; padding: 13px 15px; border-left: 4px solid var(--accent); background: var(--wash); }
+    table { width: 100%; margin: 9px 0 13px; border-collapse: collapse; font-size: 9.5pt; }
+    th, td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; }
+    th { color: var(--accent); font: 700 9pt "Segoe UI", Arial, sans-serif; }
+    .status { padding: 10px 12px; border: 1px solid var(--line); background: #f7faf9; }
+    footer { margin-top: 25px; padding-top: 9px; border-top: 1px solid var(--line); color: var(--muted); font: 8.5pt "Segoe UI", Arial, sans-serif; }
+    @page { size: A4; margin: 0; }
+    @media print {
+      body { background: white; font-size: 10.5pt; }
+      main { width: auto; min-height: auto; margin: 0; padding: 18mm 19mm; box-shadow: none; }
+      h2 { break-after: avoid; }
+      table, .summary, .status { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Relatório de implementação</p>
+  <h1>Precisão reduzida no CloverLeaf OpenACC</h1>
+  <p class="subtitle">Histórico das mudanças, motivos técnicos, erros de compilação e estado atual</p>
+  <div class="meta"><span><strong>Projeto</strong> CloverLeaf_OpenACC</span><span><strong>Data</strong> 2 de novembro de 2026</span></div>
+
+  <div class="summary">
+    <strong>Resumo executivo.</strong> Foi integrado o módulo de kinds, convertidas as declarações numéricas para o kind configurável <code>wp</code>, corrigida a sintaxe das declarações alteradas e adaptadas interfaces sensíveis de MPI e timer. Após limitações do NVFORTRAN com half e chamadas OpenACC aos helpers matemáticos, a configuração ativa foi definida como single precision (<code>wp = sp</code>). A validação local de sintaxe passou para o módulo e os kernels afetados; ainda falta confirmar o build completo no dispositivo NVIDIA.
+  </div>
+
+  <h2>1. Objetivo e configuração</h2>
+  <p>O objetivo foi começar a aplicar precisão configurável ao código Fortran, permitindo alternar entre single, double e half por meio de um único kind de trabalho. O módulo <code>precision_mod</code> define <code>sp = real32</code>, <code>dp = real64</code>, <code>hp = 2</code> e <code>wp</code> como a seleção usada pelo restante do programa.</p>
+  <p>No estado atual, a configuração ativa é <code>wp = sp</code>. As opções para double e half permanecem comentadas.</p>
+
+  <h2>2. Mudanças realizadas</h2>
+  <table>
+    <thead><tr><th>Etapa</th><th>Mudança</th><th>Motivo</th></tr></thead>
+    <tbody>
+      <tr><td>Integração do módulo</td><td><code>precision_mod.f90</code> foi colocado antes dos consumidores na receita Fortran do Makefile; <code>USE precision_mod</code> foi adicionado às unidades Fortran.</td><td>O compilador precisa gerar <code>precision_mod.mod</code> antes de compilar qualquer fonte que importa seus kinds.</td></tr>
+      <tr><td>Conversão numérica</td><td>Declarações antes fixadas em <code>REAL(KIND=8)</code> passaram para <code>REAL(KIND=wp)</code>; literais com sufixo <code>_8</code> foram convertidos para <code>_wp</code>.</td><td>Centralizar a precisão de trabalho em <code>wp</code> e permitir a seleção single/double/half.</td></tr>
+      <tr><td>Correção sintática</td><td>Foram inseridas as vírgulas exigidas antes de atributos como <code>PARAMETER</code>, <code>DIMENSION</code> e <code>ALLOCATABLE</code>.</td><td>O NVFORTRAN acusava erros em <code>data.f90</code> e <code>definitions.f90</code>; as falhas seguintes de módulos ausentes eram cascata dessas primeiras falhas.</td></tr>
+      <tr><td>Interfaces MPI</td><td>Buffers dos halos passaram a ser enviados como <code>MPI_BYTE</code>, com contagem calculada por <code>STORAGE_SIZE(wp)</code>. Reduções e allgather convertem temporariamente valores para <code>dp</code>.</td><td>Manter o transporte de buffers e as coletivas corretos sem depender de um datatype MPI para half.</td></tr>
+      <tr><td>Timer C</td><td>O timer e variáveis de medição permaneceram em <code>dp</code>.</td><td>A função C <code>timer_c</code> recebe um ponteiro para <code>double</code>; manter <code>dp</code> preserva essa ABI.</td></tr>
+      <tr><td>Leitura de valores</td><td><code>parse_getrval</code> passou a ler e retornar em <code>dp</code>.</td><td>O log mostrou falha interna do compilador ao tratar I/O formatado diretamente em real half; o valor é convertido ao kind de destino na atribuição.</td></tr>
+      <tr><td>Single/OpenACC</td><td>A seleção foi mudada para <code>wp = sp</code>. Chamadas aos helpers <code>abs_wp</code>/<code>sqrt_wp</code> foram substituídas por <code>ABS</code>/<code>SQRT</code> nativos nos call sites.</td><td>O NVFORTRAN reportou ausência de informação <code>acc routine</code> para os helpers quando chamados dentro de regiões OpenACC.</td></tr>
+      <tr><td>Propagação de erros</td><td>O <code>echo</code> foi separado da linha de link no Makefile.</td><td>Evitar mascarar o status de erro do compilador/linker com o sucesso de um <code>echo</code> encadeado.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>3. Diagnósticos observados</h2>
+  <ul>
+    <li><strong>Primeiro build:</strong> erros de sintaxe em declarações real sem vírgulas; falhas de módulos subsequentes eram consequência da compilação abortada.</li>
+    <li><strong>Build em half:</strong> avisos de I/O para real2, limitações de <code>ABS</code>/<code>SQRT</code> com half e erro interno do LLVM em <code>parse_getrval</code>. O log também mostrou incompatibilidade de kind nas chamadas de <code>clover_allgather</code>.</li>
+    <li><strong>Build em single:</strong> as tentativas iniciais falharam porque kernels chamavam helpers sem metadados de rotina OpenACC. Os call sites voltaram aos intrínsecos nativos e o kind ativo passou a <code>sp</code>.</li>
+    <li><strong>Aviso não fatal:</strong> <code>-Mipa=fast</code> está obsoleto no NVHPC 26.3 e é ignorado. Não era a causa das falhas de compilação.</li>
+  </ul>
+
+  <h2>4. Validação e estado atual</h2>
+  <div class="status">
+    <ul>
+      <li>Diagnósticos do workspace: sem erros reportados.</li>
+      <li><code>precision_mod.f90</code> compilou com <code>gfortran</code> após selecionar <code>sp</code>.</li>
+      <li>Sete kernels afetados passaram na verificação sintática do <code>gfortran</code> com o módulo recém-compilado em diretório isolado.</li>
+      <li>Não foi executado um build completo NVFORTRAN/MPI/OpenACC após as últimas alterações; esse teste ainda precisa ser feito na estação NVIDIA.</li>
+      <li>O repositório está na branch <code>master</code>, sincronizada com <code>origin/master</code>, no commit <code>85d9364</code> (<code>feat: tentativa de correção</code>).</li>
+    </ul>
+  </div>
+
+  <h2>5. Próximo passo e ressalvas</h2>
+  <ol>
+    <li>No dispositivo NVIDIA, rode <code>make clean</code> e depois <code>make COMPILER=PGI</code>. A limpeza é importante para remover módulos <code>.mod</code> antigos, que podem representar uma seleção de kind anterior.</li>
+    <li>Confirme se o linker gera o executável <code>clover_leaf</code> e rode um input curto de validação.</li>
+    <li>A seleção half ainda não está validada: o caminho atual usa intrínsecos nativos e os logs anteriores mostram limitações do NVFORTRAN para half em OpenACC e I/O.</li>
+  </ol>
+  <p>O modo single foi preparado para compilar; ainda não há confirmação de execução completa no hardware NVIDIA após a última correção.</p>
+
+  <footer>Relatório técnico gerado a partir do histórico de alterações do repositório e dos logs de compilação compartilhados durante a sessão.</footer>
+</main>
+</body>
+</html>

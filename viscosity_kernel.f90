@@ -23,6 +23,7 @@
 
 MODULE viscosity_kernel_module
   USE precision_mod, ONLY: wp
+  USE wmma
 
 CONTAINS
 
