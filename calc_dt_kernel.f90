@@ -22,7 +22,7 @@
 !>  factor is used to ensure numerical stability.
 
 MODULE calc_dt_kernel_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
   USE wmma
 
 CONTAINS
@@ -59,6 +59,7 @@ CONTAINS
 
     INTEGER :: x_min,x_max,y_min,y_max
     REAL(KIND=wp) :: g_small,g_big,dtmin,dt_min_val
+    REAL(KIND=dp) :: dt_min_val_dp
     REAL(KIND=wp) :: dtc_safe,dtu_safe,dtv_safe,dtdiv_safe
     REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+2) :: xarea
     REAL(KIND=wp), DIMENSION(x_min-2:x_max+2,y_min-2:y_max+3) :: yarea
@@ -85,7 +86,7 @@ CONTAINS
     REAL(KIND=wp)    :: div,dsx,dsy,dtut,dtvt,dtct,dtdivt,cc,dv1,dv2,jk_control
 
     small=0
-    dt_min_val = g_big
+    dt_min_val_dp = REAL(g_big,KIND=dp)
     jk_control=1.1
 
 !$ACC DATA    &
@@ -96,9 +97,9 @@ CONTAINS
 !$ACC KERNELS
 
 
-!$ACC LOOP INDEPENDENT REDUCTION(MIN : dt_min_val)
+!$ACC LOOP INDEPENDENT REDUCTION(MIN : dt_min_val_dp)
     DO k=y_min,y_max
-!$ACC LOOP INDEPENDENT PRIVATE(dsx,dsy,cc,dv1,dv2,div,dtct,dtut,dtvt,dtdivt) REDUCTION(MIN : dt_min_val)
+!$ACC LOOP INDEPENDENT PRIVATE(dsx,dsy,cc,dv1,dv2,div,dtct,dtut,dtvt,dtdivt) REDUCTION(MIN : dt_min_val_dp)
       DO j=x_min,x_max
 
         dsx=celldx(j)
@@ -134,7 +135,8 @@ CONTAINS
           dtdivt=g_big
         ENDIF
 
-        dt_min_val=MIN(dt_min_val,dtct,dtut,dtvt,dtdivt)
+        dt_min_val_dp=MIN(dt_min_val_dp,REAL(dtct,KIND=dp),REAL(dtut,KIND=dp), &
+              REAL(dtvt,KIND=dp),REAL(dtdivt,KIND=dp))
 
       ENDDO
     ENDDO
@@ -144,6 +146,8 @@ CONTAINS
 !$ACC END KERNELS
 
 !$ACC END DATA
+
+    dt_min_val=REAL(dt_min_val_dp,KIND=wp)
 
     ! Extract the mimimum timestep information
     dtl_control=10.01*(jk_control-INT(jk_control))
