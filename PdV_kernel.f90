@@ -23,7 +23,7 @@
 !>  predictor or corrector.
 
 MODULE PdV_kernel_module
-  USE precision_mod, ONLY: wp
+  USE precision_mod, ONLY: wp, dp
 
 CONTAINS
 
@@ -61,9 +61,9 @@ CONTAINS
 
     INTEGER :: j,k
 
-    REAL(KIND=wp) :: recip_volume,energy_change,min_cell_volume
+    REAL(KIND=dp) :: recip_volume,energy_change,volume_change_dp
+    REAL(KIND=wp) :: min_cell_volume
     REAL(KIND=wp) :: right_flux,left_flux,top_flux,bottom_flux,total_flux
-    REAL(KIND=wp) :: volume_change_s
 
 !$ACC DATA &
 !$ACC PRESENT(density0,energy0,pressure,viscosity,volume,xarea) &
@@ -77,7 +77,7 @@ CONTAINS
 
 !$ACC LOOP INDEPENDENT
       DO k=y_min,y_max
-!$ACC LOOP INDEPENDENT PRIVATE(right_flux,left_flux,top_flux,bottom_flux,total_flux,min_cell_volume,energy_change,recip_volume,volume_change_s)
+!$ACC LOOP INDEPENDENT PRIVATE(right_flux,left_flux,top_flux,bottom_flux,total_flux,min_cell_volume,energy_change,recip_volume,volume_change_dp)
         DO j=x_min,x_max
 
           left_flux=  (xarea(j  ,k  )*(xvel0(j  ,k  )+xvel0(j  ,k+1)                     &
@@ -90,19 +90,22 @@ CONTAINS
             +yvel0(j  ,k+1)+yvel0(j+1,k+1)))*0.25_wp*dt*0.5
           total_flux=right_flux-left_flux+top_flux-bottom_flux
 
-          volume_change_s=volume(j,k)/(volume(j,k)+total_flux)
+          volume_change_dp=REAL(volume(j,k),KIND=dp) &
+            /(REAL(volume(j,k),KIND=dp)+REAL(total_flux,KIND=dp))
 
           min_cell_volume=MIN(volume(j,k)+right_flux-left_flux+top_flux-bottom_flux &
             ,volume(j,k)+right_flux-left_flux                      &
             ,volume(j,k)+top_flux-bottom_flux)
  
-          recip_volume=1.0/volume(j,k)
+          recip_volume=1.0_dp/REAL(volume(j,k),KIND=dp)
 
-          energy_change=(pressure(j,k)/density0(j,k)+viscosity(j,k)/density0(j,k))*total_flux*recip_volume
+          energy_change=(REAL(pressure(j,k),KIND=dp)/REAL(density0(j,k),KIND=dp) &
+            +REAL(viscosity(j,k),KIND=dp)/REAL(density0(j,k),KIND=dp)) &
+            *REAL(total_flux,KIND=dp)*recip_volume
 
-          energy1(j,k)=energy0(j,k)-energy_change
+          energy1(j,k)=REAL(REAL(energy0(j,k),KIND=dp)-energy_change,KIND=wp)
 
-          density1(j,k)=density0(j,k)*volume_change_s
+          density1(j,k)=REAL(REAL(density0(j,k),KIND=dp)*volume_change_dp,KIND=wp)
 
         ENDDO
       ENDDO
@@ -114,7 +117,7 @@ CONTAINS
 
 !$ACC LOOP INDEPENDENT
       DO k=y_min,y_max
-!$ACC LOOP INDEPENDENT PRIVATE(right_flux,left_flux,top_flux,bottom_flux,total_flux,min_cell_volume,energy_change,recip_volume,volume_change_s)
+!$ACC LOOP INDEPENDENT PRIVATE(right_flux,left_flux,top_flux,bottom_flux,total_flux,min_cell_volume,energy_change,recip_volume,volume_change_dp)
         DO j=x_min,x_max
 
           left_flux=  (xarea(j  ,k  )*(xvel0(j  ,k  )+xvel0(j  ,k+1)                     &
@@ -127,19 +130,22 @@ CONTAINS
             +yvel1(j  ,k+1)+yvel1(j+1,k+1)))*0.25_wp*dt
           total_flux=right_flux-left_flux+top_flux-bottom_flux
 
-          volume_change_s=volume(j,k)/(volume(j,k)+total_flux)
+          volume_change_dp=REAL(volume(j,k),KIND=dp) &
+            /(REAL(volume(j,k),KIND=dp)+REAL(total_flux,KIND=dp))
 
           min_cell_volume=MIN(volume(j,k)+right_flux-left_flux+top_flux-bottom_flux &
             ,volume(j,k)+right_flux-left_flux                      &
             ,volume(j,k)+top_flux-bottom_flux)
  
-          recip_volume=1.0/volume(j,k)
+          recip_volume=1.0_dp/REAL(volume(j,k),KIND=dp)
 
-          energy_change=(pressure(j,k)/density0(j,k)+viscosity(j,k)/density0(j,k))*total_flux*recip_volume
+          energy_change=(REAL(pressure(j,k),KIND=dp)/REAL(density0(j,k),KIND=dp) &
+            +REAL(viscosity(j,k),KIND=dp)/REAL(density0(j,k),KIND=dp)) &
+            *REAL(total_flux,KIND=dp)*recip_volume
 
-          energy1(j,k)=energy0(j,k)-energy_change
+          energy1(j,k)=REAL(REAL(energy0(j,k),KIND=dp)-energy_change,KIND=wp)
 
-          density1(j,k)=density0(j,k)*volume_change_s
+          density1(j,k)=REAL(REAL(density0(j,k),KIND=dp)*volume_change_dp,KIND=wp)
 
         ENDDO
       ENDDO
