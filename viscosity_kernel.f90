@@ -22,9 +22,7 @@
 !>  Only cells in compression will have a non-zero value.
 
 MODULE viscosity_kernel_module
-  USE precision_mod, ONLY: wp
-  USE data_module, ONLY: g_small
-  USE wmma
+  USE precision_mod, ONLY: wp, dp
 
 CONTAINS
 
@@ -47,7 +45,7 @@ CONTAINS
     REAL(KIND=wp), DIMENSION(x_min-2:x_max+3,y_min-2:y_max+3)     :: xvel0,yvel0
 
     INTEGER       :: j,k
-    REAL(KIND=wp) :: ugrad,vgrad,grad2,pgradx,pgrady,pgradx2,pgrady2,grad     &
+    REAL(KIND=dp) :: ugrad,vgrad,grad2,pgradx,pgrady,pgradx2,pgrady2,grad     &
       ,ygrad,pgrad,xgrad,div,strain2,limiter,dirx,diry
 
 !$ACC DATA &
@@ -59,40 +57,47 @@ CONTAINS
     DO k=y_min,y_max
 !$ACC LOOP INDEPENDENT PRIVATE(ugrad,vgrad,div,strain2,pgradx,pgrady,pgradx2,pgrady2,limiter,pgrad,xgrad,ygrad,grad,grad2,dirx,diry)
       DO j=x_min,x_max
-        ugrad=(xvel0(j+1,k  )+xvel0(j+1,k+1))-(xvel0(j  ,k  )+xvel0(j  ,k+1))
+        ugrad=(REAL(xvel0(j+1,k  ),KIND=dp)+REAL(xvel0(j+1,k+1),KIND=dp)) &
+          -(REAL(xvel0(j  ,k  ),KIND=dp)+REAL(xvel0(j  ,k+1),KIND=dp))
 
-        vgrad=(yvel0(j  ,k+1)+yvel0(j+1,k+1))-(yvel0(j  ,k  )+yvel0(j+1,k  ))
+        vgrad=(REAL(yvel0(j  ,k+1),KIND=dp)+REAL(yvel0(j+1,k+1),KIND=dp)) &
+          -(REAL(yvel0(j  ,k  ),KIND=dp)+REAL(yvel0(j+1,k  ),KIND=dp))
 
-        div = (celldx(j)*(ugrad)+  celldy(k)*(vgrad))
+        div = REAL(celldx(j),KIND=dp)*ugrad+REAL(celldy(k),KIND=dp)*vgrad
 
-        strain2 = 0.5_wp*(xvel0(j,  k+1) + xvel0(j+1,k+1)-xvel0(j  ,k  )-xvel0(j+1,k  ))/celldy(k) &
-          + 0.5_wp*(yvel0(j+1,k  ) + yvel0(j+1,k+1)-yvel0(j  ,k  )-yvel0(j  ,k+1))/celldx(j)
+        strain2 = 0.5_dp*(REAL(xvel0(j,  k+1),KIND=dp)+REAL(xvel0(j+1,k+1),KIND=dp) &
+          -REAL(xvel0(j  ,k  ),KIND=dp)-REAL(xvel0(j+1,k  ),KIND=dp))/REAL(celldy(k),KIND=dp) &
+          +0.5_dp*(REAL(yvel0(j+1,k  ),KIND=dp)+REAL(yvel0(j+1,k+1),KIND=dp) &
+          -REAL(yvel0(j  ,k  ),KIND=dp)-REAL(yvel0(j  ,k+1),KIND=dp))/REAL(celldx(j),KIND=dp)
 
-        pgradx=(pressure(j+1,k)-pressure(j-1,k))/(celldx(j)+celldx(j+1))
-        pgrady=(pressure(j,k+1)-pressure(j,k-1))/(celldy(k)+celldy(k+1))
+        pgradx=(REAL(pressure(j+1,k),KIND=dp)-REAL(pressure(j-1,k),KIND=dp)) &
+          /(REAL(celldx(j),KIND=dp)+REAL(celldx(j+1),KIND=dp))
+        pgrady=(REAL(pressure(j,k+1),KIND=dp)-REAL(pressure(j,k-1),KIND=dp)) &
+          /(REAL(celldy(k),KIND=dp)+REAL(celldy(k+1),KIND=dp))
 
         pgradx2 = pgradx*pgradx
         pgrady2 = pgrady*pgrady
 
-        limiter = ((0.5_wp*(ugrad)/celldx(j))*pgradx2+(0.5_wp*(vgrad)/celldy(k))*pgrady2+strain2*pgradx*pgrady)  &
-          /MAX(pgradx2+pgrady2,g_small)
+        limiter = ((0.5_dp*ugrad/REAL(celldx(j),KIND=dp))*pgradx2 &
+          +(0.5_dp*vgrad/REAL(celldy(k),KIND=dp))*pgrady2+strain2*pgradx*pgrady) &
+          /MAX(pgradx2+pgrady2,1.0e-16_dp)
 
-        IF ((limiter.GT.0.0).OR.(div.GE.0.0))THEN
-          viscosity(j,k) = 0.0
+        IF ((limiter.GT.0.0_dp).OR.(div.GE.0.0_dp))THEN
+          viscosity(j,k) = 0.0_wp
         ELSE
-          dirx=1.0_wp
-          IF(pgradx.LT.0.0) dirx=-1.0_wp
-          pgradx = dirx*MAX(g_small,ABS(pgradx))
-          diry=1.0_wp
-          IF(pgradx.LT.0.0) diry=-1.0_wp
-          pgrady = diry*MAX(g_small,ABS(pgrady))
+          dirx=1.0_dp
+          IF(pgradx.LT.0.0_dp) dirx=-1.0_dp
+          pgradx = dirx*MAX(1.0e-16_dp,ABS(pgradx))
+          diry=1.0_dp
+          IF(pgradx.LT.0.0_dp) diry=-1.0_dp
+          pgrady = diry*MAX(1.0e-16_dp,ABS(pgrady))
           pgrad = SQRT(pgradx**2+pgrady**2)
-          xgrad = ABS(celldx(j)*pgrad/pgradx)
-          ygrad = ABS(celldy(k)*pgrad/pgrady)
+          xgrad = ABS(REAL(celldx(j),KIND=dp)*pgrad/pgradx)
+          ygrad = ABS(REAL(celldy(k),KIND=dp)*pgrad/pgrady)
           grad  = MIN(xgrad,ygrad)
           grad2 = grad*grad
 
-          viscosity(j,k)=2.0_wp*density0(j,k)*grad2*limiter*limiter
+          viscosity(j,k)=REAL(2.0_dp*REAL(density0(j,k),KIND=dp)*grad2*limiter*limiter,KIND=wp)
         ENDIF
 
       ENDDO
