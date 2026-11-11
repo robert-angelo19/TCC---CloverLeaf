@@ -55,6 +55,7 @@ CONTAINS
     !$ INTEGER :: OMP_GET_THREAD_NUM
 
     dt    = g_big
+    dt_control='unknown'
     small=0
 
     IF(profiler_on) kernel_time=timer()

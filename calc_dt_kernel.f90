@@ -83,11 +83,12 @@ CONTAINS
 
     INTEGER          :: j,k
 
-    REAL(KIND=wp)    :: div,dsx,dsy,dtut,dtvt,dtct,dtdivt,cc,dv1,dv2,jk_control
+    REAL(KIND=dp)    :: jk_control
+    REAL(KIND=wp)    :: div,dsx,dsy,dtut,dtvt,dtct,dtdivt,cc,dv1,dv2
 
     small=0
     dt_min_val_dp = REAL(g_big,KIND=dp)
-    jk_control=1.1
+    jk_control=1.1_dp
 
 !$ACC DATA    &
 !$ACC PRESENT(celldx,celldy,cellx,celly,density0,soundspeed,viscosity_a,volume) &

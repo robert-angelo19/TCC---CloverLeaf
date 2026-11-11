@@ -23,6 +23,7 @@
 
 MODULE viscosity_kernel_module
   USE precision_mod, ONLY: wp
+  USE data_module, ONLY: g_small
   USE wmma
 
 CONTAINS
@@ -74,17 +75,17 @@ CONTAINS
         pgrady2 = pgrady*pgrady
 
         limiter = ((0.5_wp*(ugrad)/celldx(j))*pgradx2+(0.5_wp*(vgrad)/celldy(k))*pgrady2+strain2*pgradx*pgrady)  &
-          /MAX(pgradx2+pgrady2,1.0e-16_wp)
+          /MAX(pgradx2+pgrady2,g_small)
 
         IF ((limiter.GT.0.0).OR.(div.GE.0.0))THEN
           viscosity(j,k) = 0.0
         ELSE
           dirx=1.0_wp
           IF(pgradx.LT.0.0) dirx=-1.0_wp
-          pgradx = dirx*MAX(1.0e-16_wp,ABS(pgradx))
+          pgradx = dirx*MAX(g_small,ABS(pgradx))
           diry=1.0_wp
           IF(pgradx.LT.0.0) diry=-1.0_wp
-          pgrady = diry*MAX(1.0e-16_wp,ABS(pgrady))
+          pgrady = diry*MAX(g_small,ABS(pgrady))
           pgrad = SQRT(pgradx**2+pgrady**2)
           xgrad = ABS(celldx(j)*pgrad/pgradx)
           ygrad = ABS(celldy(k)*pgrad/pgrady)

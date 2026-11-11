@@ -28,8 +28,8 @@ MODULE data_module
 
   INTEGER,      PARAMETER :: g_ibig=640000
 
-  REAL(KIND=wp), PARAMETER :: g_small=1.0e-16  &
-    ,g_big  =1.0e+21
+  REAL(KIND=wp), PARAMETER :: g_small=MAX(1.0e-16_wp,TINY(1.0_wp)) &
+    ,g_big=HUGE(1.0_wp)
 
   INTEGER,      PARAMETER :: g_name_len_max=255 &
     ,g_xdir=1           &

@@ -41,6 +41,7 @@ CONTAINS
     INTEGER          :: small
 
     local_dt=g_big
+    local_control='unknown'
 
 
     small = 0
